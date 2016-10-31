@@ -1,0 +1,45 @@
+/*
+	Row 2 = -350
+	Row 1 = -240
+
+
+*/
+.icon {
+	width: 150px;
+	height: 110px;
+	background:url(/img/sprite-3.0.434.png);
+	/*display: inline-block;*/
+	float: left;
+}
+
+.cloudy {background-position:0 -130px}
+.drizzle {background-position:-150px -130px}
+.few-showers {background-position:-300px -130px}
+.fine {background-position:-450px -130px}
+.fog {background-position:-600px -130px}
+.hail {background-position:-750px -130px}
+
+.partly-cloudy {background-position: 0 -240px}
+.rain {background-position: -150px -240px}
+.showers {background-position:-300px -240px}
+.snow {background-position:-450px -240px}
+.thunder {background-position:-600px -240px}
+.windy,.wind {background-position:-750px -240px}
+
+/*.cloudy .icon{background-position:0 0}
+.drizzle .icon{background-position:-60px 0}
+.few-showers .icon{background-position:-120px 0}
+.fine .icon{background-position:-180px 0}
+.fog .icon{background-position:-240px 0}
+.hail .icon{background-position:-300px 0}
+.partly-cloudy .icon{background-position:-360px 0}
+.rain .icon{background-position:-420px 0}
+.showers .icon{background-position:-480px 0}
+.snow .icon{background-position:-540px 0}
+.thunder .icon{background-position:-600px 0}
+.windy .icon,.wind .icon{background-position:-660px 0}*/
+/*.icon {
+	width: 60px;
+	height: 57px;
+	background:url(/img/sprite-3.0.434.png)
+}*/
