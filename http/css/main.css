@@ -149,7 +149,7 @@ textarea {
 }
 
 .dashboard-piece-redbg {
-    background-color: #E73F3F;
+    background-color: #444444;
 }
 .dashboard-piece-orangebg {
     background-color: #F76C27;
@@ -158,7 +158,7 @@ textarea {
     background-color: #E7E737;
 }
 .dashboard-piece-bluebg {
-    background-color: #3a90b3;
+    background-color: #3983A1;
 }
 .dashboard-piece-purplebg {
     background-color: #7E45D3;
@@ -246,7 +246,13 @@ input:focus {
 
 #shopping li {
     width: auto;
-    font-size: 1.2em;
+    font-size: 24pt;
+    font-family: 'Caveat Brush', cursive;
+    list-style-type: none;
+}
+
+#shopping {
+    font-family: 'Caveat Brush', cursive;
 }
 
 

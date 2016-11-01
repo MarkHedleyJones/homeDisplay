@@ -50,27 +50,30 @@ function loadWeather(data) {
 	out += '<div style="text-align: left; width: auto; display: inline-block">';
 	out += '	<span style="color: #155069; font-weight: 700; font-size: 2em; margin-right: 30px">'
 	out += '	<span style="font-size: 12pt">MIN:</span>'+data.LOCAL_FORECAST.days[0].min+'</span>';
-	out += '	<span style="color: #B24D4D; font-weight: 700; font-size: 2em">';
+	out += '	<span class="weather_red" style="font-weight: 700; font-size: 2em">';
 	out += '	<span style="font-size: 12pt">MAX:</span>'+data.LOCAL_FORECAST.days[0].max+'</span>';
 	out += '</div>';
 	out += '<div style="padding: 20px"><canvas id="myChart" height="80"></canvas></div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[1].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
-	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[1].dowTLA + '</h3>';
-	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')) + '</span>';
+	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[1].dowTLA + '</h3> - ';
+	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[1].max + '</span><br>'
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')) + '.</span>';
 	out += '</div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[2].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
-	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[2].dowTLA + '</h3>';
-	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')) + '</span>';
+	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[2].dowTLA + '</h3> - ';
+	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[2].max + '</span><br>'
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')) + '.</span>';
 	out += '</div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[3].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
-	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[3].dowTLA + '</h3>';
-	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')) + '</span>';
+	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[3].dowTLA + '</h3> - ';
+	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[3].max + '</span><br>'
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')) + '.</span>';
 	out += '</div>';
 
 	$("#weather").html(out);
