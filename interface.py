@@ -3,6 +3,7 @@ import pprint
 import json
 import modules.weather
 import time
+import os
 app = Flask(__name__)
 
 
@@ -21,23 +22,34 @@ def send_img(path):
 def send_js(path):
 	return send_from_directory('http/js', path)
 
+def download_weather():
+	weather = json.dumps(modules.weather.get_weather('Tauranga'), sort_keys=True)
+	with open('http/weather.json', 'w') as f:
+		f.write(weather)
+	return Response(weather, mimetype='application/json')
+
 @app.route("/get_weather")
 def weather():
-	with open('http/weather.json', 'r') as f:
-		tmp = f.readlines()
-	weather_cached = json.loads("\n".join(tmp))
-	if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
-		return send_from_directory('http', 'weather.json')
+	if os.path.exists('http/weather.json'):
+		with open('http/weather.json', 'r') as f:
+			tmp = f.readlines()
+		weather_cached = json.loads("\n".join(tmp))
+		if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
+			return send_from_directory('http', 'weather.json')
+		else:
+			return download_weather()		
 	else:
-		weather = json.dumps(modules.weather.get_weather('Tauranga'), sort_keys=True)
-		with open('http/weather.json', 'w') as f:
-			f.write(weather)
-		return Response(weather, mimetype='application/json')
+		return download_weather()
 	
 
 @app.route("/get_shopping")
 def get_shopping():
-	return send_from_directory('http', 'shopping.json')
+	if os.path.exists('http/shopping.json'):
+		return send_from_directory('http', 'shopping.json')
+	else:
+		with open('http/weather.json', 'w') as f:
+			json.dumps([], f)
+		return []
 
 def load_shopping():
 	with open('http/shopping.json', 'r') as f:
