@@ -87,3 +87,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+http/shopping.json
+http/weather.json
