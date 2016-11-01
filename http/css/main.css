@@ -14,6 +14,11 @@ html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
+    height: 100%;
+}
+
+body {
+    height: 100%;
 }
 
 
@@ -109,6 +114,11 @@ textarea {
     blue: #6D9DD1
     purple: #7E45D3
 */
+
+.dashboard {
+    height: 100%
+}
+
 .dashboard-banner {
     min-height: 80px;
     -webkit-box-sizing: border-box;
@@ -127,6 +137,7 @@ textarea {
 
 .dashboard-piece {
     min-height: 300px;
+    height: 100%;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

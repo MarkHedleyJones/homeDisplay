@@ -54,19 +54,19 @@ function loadWeather(data) {
 	out += '	<span style="font-size: 12pt">MAX:</span>'+data.LOCAL_FORECAST.days[0].max+'</span>';
 	out += '</div>';
 	out += '<div style="padding: 20px"><canvas id="myChart" height="80"></canvas></div>';
-	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[1].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[1].dowTLA + '</h3>';
 	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')) + '</span>';
 	out += '</div>';
-	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[2].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[2].dowTLA + '</h3>';
 	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')) + '</span>';
 	out += '</div>';
-	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[3].forecastWord);
 	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[3].dowTLA + '</h3>';
@@ -159,9 +159,14 @@ function loadWeather(data) {
 
 }
 
-$.ajax({
-	url: "get_weather",
-	datatype: "json"
-}).done(function(data) {
-	loadWeather(data);
-});
+function trigger_weather() {
+	$.ajax({
+		url: "get_weather",
+		datatype: "json"
+	}).done(function(data) {
+		loadWeather(data);
+		setTimeout(trigger_weather, 60000);
+	});	
+}
+
+trigger_weather();

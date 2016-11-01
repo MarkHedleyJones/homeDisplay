@@ -30,7 +30,8 @@
 .icon.sm {
 	width: 60px;
 	height: 57px;
-	background:url(/img/sprite-3.0.434.png)
+	background:url(/img/sprite-3.0.434.png);
+	float: left;
 }
 
 .sm.cloudy {background-position:0 0}
