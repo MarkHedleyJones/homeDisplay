@@ -2,6 +2,7 @@ from flask import Flask, request, send_from_directory, redirect, Response
 import pprint
 import json
 import modules.weather
+import time
 app = Flask(__name__)
 
 
@@ -22,11 +23,17 @@ def send_js(path):
 
 @app.route("/get_weather")
 def weather():
-	# weather = json.dumps(modules.weather.get_weather('Tauranga'), sort_keys=True)
-	# with open('http/weather.json', 'w') as f:
-		# f.write(weather)
-	# return Response(weather, mimetype='application/json')
-	return send_from_directory('http', 'weather.json')
+	with open('http/weather.json', 'r') as f:
+		tmp = f.readlines()
+	weather_cached = json.loads("\n".join(tmp))
+	if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
+		return send_from_directory('http', 'weather.json')
+	else:
+		weather = json.dumps(modules.weather.get_weather('Tauranga'), sort_keys=True)
+		with open('http/weather.json', 'w') as f:
+			f.write(weather)
+		return Response(weather, mimetype='application/json')
+	
 
 @app.route("/get_shopping")
 def get_shopping():

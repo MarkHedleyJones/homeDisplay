@@ -2,6 +2,7 @@ import urllib2
 import sys
 import json
 import pprint
+import time
 
 METSERVICE_BASE = 'http://metservice.com/publicData/'
 # It's a little bit ugly, but it allows me to iterate over them later
@@ -31,6 +32,7 @@ def get_weather(city):
     print("Hereing")
     # city = "Tauranga"
     out = {}
+    out['FETCHED'] = time.time();
     for key in API_OPTIONS.iterkeys():
         if key == 'DAILY_FORECAST':
             url = ''.join([METSERVICE_BASE, API_OPTIONS[key].format(city)])

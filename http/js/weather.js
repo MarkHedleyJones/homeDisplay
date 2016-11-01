@@ -34,22 +34,44 @@ function date_word(number) {
 	return out;
 }
 
+function get_iconName(forecastWord) {
+	return weatherIconNameMapping[toTitleCase(forecastWord).replace(" ", "")];
+}
+
 // Load the weather
 function loadWeather(data) {
-
 	var d = new Date();
-	// out = "<h1>" + days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()] + "</h1>";
 	out = "<h2>Tauranga</h2>";
-	// out += '<div style="width: 30%; display: inline-block; vertical-align: top">';
 	out += '<div style="padding-bottom: 50px">';
-	console.log(data);
-	console.log(toTitleCase(data.LOCAL_FORECAST.days[0].forecastWord).replace(" ", ""));
-	img_class = weatherIconNameMapping[toTitleCase(data.LOCAL_FORECAST.days[0].forecastWord).replace(" ", "")];
-	out += '<div class="icon '+img_class+'"></div>';
+	img_class = get_iconName(data.LOCAL_FORECAST.days[0].forecastWord);
+	out += '<div class="icon lrg '+img_class+'"></div>';
 	out += '<h3 style="text-align: left; margin: 0">' + data.LOCAL_FORECAST.days[0].forecastWord + "</h3>";
 	out += '<div style="text-align: left; margin: 0; padding: 0">' + data.LOCAL_FORECAST.days[0].forecast + "</div>";
-	out += "</div>"
+	out += '<div style="text-align: left; width: auto; display: inline-block">';
+	out += '	<span style="color: #155069; font-weight: 700; font-size: 2em; margin-right: 30px">'
+	out += '	<span style="font-size: 12pt">MIN:</span>'+data.LOCAL_FORECAST.days[0].min+'</span>';
+	out += '	<span style="color: #B24D4D; font-weight: 700; font-size: 2em">';
+	out += '	<span style="font-size: 12pt">MAX:</span>'+data.LOCAL_FORECAST.days[0].max+'</span>';
+	out += '</div>';
 	out += '<div style="padding: 20px"><canvas id="myChart" height="80"></canvas></div>';
+	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	img_class = get_iconName(data.LOCAL_FORECAST.days[1].forecastWord);
+	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[1].dowTLA + '</h3>';
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')) + '</span>';
+	out += '</div>';
+	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	img_class = get_iconName(data.LOCAL_FORECAST.days[2].forecastWord);
+	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[2].dowTLA + '</h3>';
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')) + '</span>';
+	out += '</div>';
+	out += '<div style="width: 33%; display: inline-block; vertical-align: top">';
+	img_class = get_iconName(data.LOCAL_FORECAST.days[3].forecastWord);
+	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<h3 style="margin: 0">' + data.LOCAL_FORECAST.days[3].dowTLA + '</h3>';
+	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')) + '</span>';
+	out += '</div>';
 
 	$("#weather").html(out);
 	var ctx = $("#myChart");
