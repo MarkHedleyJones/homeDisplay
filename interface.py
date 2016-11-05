@@ -23,45 +23,64 @@ def send_js(path):
 	return send_from_directory('http/js', path)
 
 def download_weather():
-	weather = json.dumps(modules.weather.get_weather('Tauranga'), sort_keys=True)
+	print("/download_weather")
+	weather = modules.weather.get_weather('Tauranga')
 	with open('http/weather.json', 'w') as f:
-		f.write(weather)
-	return Response(weather, mimetype='application/json')
+		f.write(json.dumps(weather, sort_keys=True))
+	return weather
+	# return Response(weather, mimetype='application/json')
 
 @app.route("/get_weather")
 def weather():
+	print("/weather")
 	if os.path.exists('http/weather.json'):
 		with open('http/weather.json', 'r') as f:
 			tmp = f.readlines()
-		weather_cached = json.loads("\n".join(tmp))
+		try:
+			weather_cached = json.loads("\n".join(tmp))
+			print("Returned cached weather")
+		except:
+			print("Failed to load json weather, returning fresh download")
+			return Response(download_weather(), mimetype='application/json')
+
 		if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
+			print("Returning cached weather")
 			return send_from_directory('http', 'weather.json')
 		else:
-			return download_weather()		
+			print("Cached weather expired, returning fresh download")
+			return Response(download_weather(), mimetype='application/json')	
 	else:
-		return download_weather()
+		print("No cache exists, returning fresh download")
+		return Response(download_weather(), mimetype='application/json')
 	
 
 @app.route("/get_shopping")
 def get_shopping():
+	print("/get_shopping")
 	if os.path.exists('http/shopping.json'):
+		print("Returning shopping.json from directory")
 		return send_from_directory('http', 'shopping.json')
 	else:
-		with open('http/weather.json', 'w') as f:
-			json.dumps([], f)
-		return []
+		with open('http/shopping.json', 'w') as f:
+			# json.dumps([], f)
+			f.write("[]")
+		print("Returning empty shopping.json file")
+		return Response([], mimetype='application/json')
 
 def load_shopping():
+	print("/load_shopping")
 	with open('http/shopping.json', 'r') as f:
 		tmp = f.readlines()
 	return json.loads("\n".join(tmp))
 
 def save_shopping(shopping):
+	print("/save_shopping")
 	with open('http/shopping.json', 'w') as f:
 		json.dump(shopping, f)
 
 @app.route("/update_shopping", methods=['POST', 'GET'])
 def update_shopping():
+	print("/update_shopping")
 	name = None
 	print(request)
 	print(request.form)
@@ -85,9 +104,15 @@ def update_shopping():
 
 @app.route("/")
 def hello():
-	print("main?")
 	return send_from_directory('http', 'index.html')
 
 
 if __name__ == "__main__":
+	# print(weather())
+	if os.path.exists('http/shopping.json'):
+		with open('http/shopping.json', 'w') as f:
+			f.write('[]')
+	if os.path.exists('http/weather.json'):
+		with open('http/weather.json', 'w') as f:
+			f.write('[]')
 	app.run(debug=True)
