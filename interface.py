@@ -107,5 +107,5 @@ def hello():
 	return send_from_directory('http', 'index.html')
 
 
-if __name__ == "__main__"
+if __name__ == "__main__":
 	app.run(debug=True)
