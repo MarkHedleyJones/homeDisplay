@@ -44,7 +44,7 @@ function loadWeather(data) {
 	out = "<h2>Tauranga</h2>";
 	out += '<div style="padding-bottom: 50px">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[0].forecastWord);
-	out += '<div class="icon lrg '+img_class+'"></div>';
+	out += '<div class="icon lrg '+img_class+'" style="position: relative; top: -15px"></div>';
 	out += '<h3 style="text-align: left; margin: 0">' + data.LOCAL_FORECAST.days[0].forecastWord + "</h3>";
 	out += '<div style="text-align: left; margin: 0; padding: 0">' + data.LOCAL_FORECAST.days[0].forecast + "</div>";
 	out += '<div style="text-align: left; width: auto; display: inline-block">';
@@ -53,24 +53,24 @@ function loadWeather(data) {
 	out += '	<span class="weather_red" style="font-weight: 700; font-size: 2em">';
 	out += '	<span style="font-size: 12pt">MAX:</span>'+data.LOCAL_FORECAST.days[0].max+'</span>';
 	out += '</div>';
-	out += '<div style="padding: 20px"><canvas id="myChart" height="80"></canvas></div>';
+	out += '<div style="padding: 50px 20px"><span style="font-size: 0.9em">Today&rsquo;s Rainfall (mm during period)</span><canvas id="myChart" height="80"></canvas></div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[1].forecastWord);
-	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<div style="margin: 0 15px 0 0; position: relative; top: -5px" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[1].dowTLA + '</h3> - ';
 	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[1].max + '</span><br>'
 	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')) + '.</span>';
 	out += '</div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[2].forecastWord);
-	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<div style="margin: 0 15px 0 0; position: relative; top: -5px" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[2].dowTLA + '</h3> - ';
 	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[2].max + '</span><br>'
 	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')) + '.</span>';
 	out += '</div>';
 	out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	img_class = get_iconName(data.LOCAL_FORECAST.days[3].forecastWord);
-	out += '	<div style="margin: 0 auto;" class="icon sm '+img_class+'"></div>';
+	out += '	<div style="margin: 0 15px 0 0; position: relative; top: -5px" class="icon sm '+img_class+'"></div>';
 	out += '	<h3 style="margin: 0; display: inline-block">' + data.LOCAL_FORECAST.days[3].dowTLA + '</h3> - ';
 	out += '	<span class="weather_red" style="font-weight: 700; font-size: 12pt; margin-right: 30px">' + data.LOCAL_FORECAST.days[3].max + '</span><br>'
 	out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')) + '.</span>';
@@ -83,6 +83,9 @@ function loadWeather(data) {
 		showLines: true,
 		spanGaps: false,
 		legend: false,
+		animation: {
+			duration: 0
+		},
 		scales: {
         yAxes: [{
             ticks: {
@@ -99,7 +102,7 @@ function loadWeather(data) {
                 stepSize: 1,
                 beginAtZero:true
             }
-        }]
+        }],
     }
 	};
 
@@ -158,8 +161,6 @@ function loadWeather(data) {
 	    data: graph_data,
 	    options: options
 	});
-
-
 }
 
 function trigger_weather() {
