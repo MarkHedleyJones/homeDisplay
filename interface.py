@@ -107,12 +107,5 @@ def hello():
 	return send_from_directory('http', 'index.html')
 
 
-if __name__ == "__main__":
-	# print(weather())
-	if os.path.exists('http/shopping.json'):
-		with open('http/shopping.json', 'w') as f:
-			f.write('[]')
-	if os.path.exists('http/weather.json'):
-		with open('http/weather.json', 'w') as f:
-			f.write('[]')
+if __name__ == "__main__"
 	app.run(debug=True)
