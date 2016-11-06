@@ -67,8 +67,10 @@ function renderDate() {
 	}
 	ext = "AM";
 	if (pm) ext = "PM";
-
-	out += '<h2 style="float: right; margin: 0 50px 0 0; padding-top: 15px; font-size: 3.0em">' + hours + ':' + d.getMinutes() + ' ' + ext + '</h2>'
+	minutes = d.getMinutes();
+	if d.getMinutes() < 10:
+		minutes = "0" + minutes
+	out += '<h2 style="float: right; margin: 0 50px 0 0; padding-top: 15px; font-size: 3.0em">' + hours + ':' + minutes + ' ' + ext + '</h2>'
 	$("#banner").html(out);
 	setTimeout(renderDate, 1000);
 }
