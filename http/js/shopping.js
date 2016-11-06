@@ -26,6 +26,8 @@ function updateList(item) {
 	});
 }
 
+var counter = 0;
+
 function lookupCode(code) {
 	
 	$.ajax({
@@ -58,11 +60,14 @@ function lookupCode(code) {
 function loadShopping() {
 	console.log('loading shopping')
 	$.ajax({
-		url: "/get_shopping",
+		url: "/get_shopping?rand="+Math.random(),
 		datatype: "json"
 	}).done(function(tmp_data) {
-		console.log('displayShopping')
+		console.log('displayShopping');
+		console.log(counter);
+		counter = counter + 1;
 		displayShopping(tmp_data);
+		setTimeout(loadShopping, 1000);
 	});	
 }
 

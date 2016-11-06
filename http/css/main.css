@@ -120,13 +120,16 @@ textarea {
 }
 
 .dashboard-banner {
-    min-height: 80px;
+    height: 100px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     color: #fff;
     text-align: center;
-    position: relative;
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
 }
 
 .dashboard-banner h1 {
@@ -145,7 +148,7 @@ textarea {
     text-align: center;
     position: relative;
     padding-bottom: 20px;
-    padding-top: 20px;
+    padding-top: 120px;
 }
 
 .dashboard-piece-redbg {

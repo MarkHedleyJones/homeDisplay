@@ -38,15 +38,17 @@ def weather():
 			tmp = f.readlines()
 		try:
 			weather_cached = json.loads("\n".join(tmp))
-			return Response(json.dumps(weather_cached), mimetype='application/json')
 			print("Returned cached weather")
+			# return Response(json.dumps(weather_cached), mimetype='application/json')
+			
 		except:
 			print("Failed to load json weather, returning fresh download")
 			return Response(download_weather(), mimetype='application/json')
 
 		if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
 			print("Returning cached weather")
-			return send_from_directory('http', 'weather.json')
+			return Response(json.dumps(weather_cached), mimetype='application/json')
+			# return send_from_directory('http', 'weather.json')
 		else:
 			print("Cached weather expired, returning fresh download")
 			return Response(download_weather(), mimetype='application/json')	
@@ -88,10 +90,11 @@ def update_shopping():
 	name = request.form['item']
 	print(name)
 	if len(name) > 0:
-		
 		print('opening')
 		shopping = load_shopping()
-		if name == "reset":
+		if name in shopping:
+			shopping.remove(name)
+		elif name == "reset":
 			shopping = []
 		elif name == "remove 1":
 			shopping = shopping[:-1]

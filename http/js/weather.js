@@ -165,7 +165,7 @@ function loadWeather(data) {
 
 function trigger_weather() {
 	$.ajax({
-		url: "get_weather",
+		url: "get_weather?rand="+Math.random(),
 		datatype: "json"
 	}).done(function(data) {
 		loadWeather(data);
