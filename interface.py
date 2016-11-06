@@ -38,6 +38,7 @@ def weather():
 			tmp = f.readlines()
 		try:
 			weather_cached = json.loads("\n".join(tmp))
+			return Response(json.dumps(weather_cached), mimetype='application/json')
 			print("Returned cached weather")
 		except:
 			print("Failed to load json weather, returning fresh download")
