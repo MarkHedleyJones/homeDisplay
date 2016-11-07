@@ -43,7 +43,7 @@ def weather():
 			
 		except:
 			print("Failed to load json weather, returning fresh download")
-			return Response(download_weather(), mimetype='application/json')
+			return Response(json.dumps(download_weather()), mimetype='application/json')
 
 		if 'FETCHED' in weather_cached and (time.time() - weather_cached['FETCHED']) < 60 * 5:
 			print("Returning cached weather")
@@ -51,10 +51,10 @@ def weather():
 			# return send_from_directory('http', 'weather.json')
 		else:
 			print("Cached weather expired, returning fresh download")
-			return Response(download_weather(), mimetype='application/json')	
+			return Response(json.dumps(download_weather()), mimetype='application/json')	
 	else:
 		print("No cache exists, returning fresh download")
-		return Response(download_weather(), mimetype='application/json')
+		return Response(json.dumps(download_weather()), mimetype='application/json')
 	
 
 @app.route("/get_shopping")
