@@ -48,7 +48,7 @@ function loadWeather(data) {
 	out += '<h3 style="text-align: left; margin: 0">' + data.LOCAL_FORECAST.days[0].forecastWord + "</h3>";
 	out += '<div style="text-align: left; margin: 0; padding: 0">' + data.LOCAL_FORECAST.days[0].forecast + "</div>";
 	out += '<div style="text-align: left; width: auto; display: inline-block">';
-	out += '	<span style="color: #155069; font-weight: 700; font-size: 2em; margin-right: 30px">'
+	out += '	<span class="weather_blue" style="font-weight: 700; font-size: 2em; margin-right: 30px">'
 	out += '	<span style="font-size: 12pt">MIN:</span>'+data.LOCAL_FORECAST.days[0].min+'</span>';
 	out += '	<span class="weather_red" style="font-weight: 700; font-size: 2em">';
 	out += '	<span style="font-size: 12pt">MAX:</span>'+data.LOCAL_FORECAST.days[0].max+'</span>';

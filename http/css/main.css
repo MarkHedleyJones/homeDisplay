@@ -177,7 +177,7 @@ textarea {
     text-align: center;
     position: relative;
     padding-bottom: 20px;
-    padding-top: 113px;
+    padding-top: 111px;
 }
 
 .dashboard-piece-redbg {
@@ -193,16 +193,16 @@ textarea {
     background-color: #3983A1;
 }
 .dashboard-piece-purplebg {
-    background-color: #7E45D3;
+    background-color: #9377BF;
 }
 .dashboard-piece-graybg {
     background-color: #798388;
 }
 .dashboard-piece-tealbg {
-    background-color: #13ACB1;
+    background-color: #60AEB1;
 }
 .dashboard-piece-greenbg {
-    background-color: #737373;
+    background-color: #696969;
 }
 
 .dashboard-piece h2 {

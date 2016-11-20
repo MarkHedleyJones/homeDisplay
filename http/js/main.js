@@ -54,7 +54,7 @@ function date_word(number) {
 
 function renderDate() {
 	var d = new Date();
-	out = '<h1 style="width: auto; text-align: left; float: left; margin-left: 50px">';
+	out = '<h1 style="width: auto; text-align: left; float: left; margin-left: 35px">';
 	out += days[d.getDay()] + " " + d.getDate()
 	out += "<sup>" + date_word(d.getDate()) + "</sup> "
 	out += months[d.getMonth()]
