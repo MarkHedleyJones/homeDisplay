@@ -64,7 +64,7 @@ function close_card(name) {
 
 function archive_all() {
     url = '/lists/' + shopping_urls[current_list] + '/archiveAllCards';
-	Trello.post(url, loadShopping);
+	Trello.post(url, load_lists);
 }
 
 var counter = 0;

@@ -71,7 +71,7 @@ function renderDate() {
 	if (d.getMinutes() < 10) {
 		mins = "0" + mins
 	}
-	out += '<h2 style="float: right; margin: 0 50px 0 0; padding-top: 15px; font-size: 3.0em">' + hours + ':' + mins + ' ' + ext + '</h2>'
+	out += '<h2 style="float: right; font-family: \'Liberation Sans\'; margin: 0 50px 0 0; padding-top: 15px; font-size: 3.0em">' + hours + ':' + mins + ' ' + ext + '</h2>'
 	$("#banner").html(out);
 	setTimeout(renderDate, 1000);
 }
