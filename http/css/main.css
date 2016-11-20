@@ -177,7 +177,7 @@ textarea {
     text-align: center;
     position: relative;
     padding-bottom: 20px;
-    padding-top: 112px;
+    padding-top: 113px;
 }
 
 .dashboard-piece-redbg {
@@ -202,7 +202,7 @@ textarea {
     background-color: #13ACB1;
 }
 .dashboard-piece-greenbg {
-    background-color: #595959;
+    background-color: #737373;
 }
 
 .dashboard-piece h2 {
