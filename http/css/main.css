@@ -119,6 +119,32 @@ textarea {
     height: 100%
 }
 
+.list_selector {
+    width: 95%;
+    height: 100%;
+    border: 3px solid rgba(255, 255, 255, 0);
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 auto;
+    padding: 0px;
+}
+
+.list_selected {
+    color: rgba(255, 255, 255, 1);
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.list_selector ul {
+    text-align: left;
+}
+
+.dashboard-piece .list_selector h2 {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-piece .list_selector.list_selected h2 {
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .dashboard-banner {
     height: 100px;
     -webkit-box-sizing: border-box;

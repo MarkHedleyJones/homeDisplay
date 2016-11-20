@@ -1,61 +1,70 @@
 days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-shopping_list = []
-shopping_list_ids = []
+var shopping_list = [[], []];
+var shopping_list_ids = [[],[]];
+var shopping_queued = [false, false];
+var shopping_urls = [
+   '581fafe836e0ef68e2777f67',
+   '582fdea3aeeca26b9064c5c6'
+];
+
+current_list = 0;
 
 function displayShopping() {
-	data = shopping_list;
-	$("#shopping").html("");
-	console.log(data);
-	// out = "<h1>" + days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()] + "</h1>";
-	out = '<ul>';
-	for (i = 0; i< data.length; i++) {
-		out += '<li>' + data[i] + '</li>';
-	}
-	out += '</ul>';
-	$("#shopping").html(out);
-	document.getElementById('codefield').focus();
+    for (list_id = 0; list_id < 2; list_id++) {
+    	data = shopping_list[list_id];
+    	$("#shopping_"+list_id).html("");
+    	out = '<ul>';
+        if (data.length > 0) {
+        	for (i = 0; i< data.length; i++) {
+        		out += '<li>' + data[i] + '</li>';
+        	}
+        }
+        else {
+            out += '<li>No items</li>';
+        }
+    	out += '</ul>';
+    	$("#shopping_"+list_id).html(out);
+    }
+    highlight_list();
+}
+
+function highlight_list() {
+    $("#list_"+current_list).addClass("list_selected");
+    $("#list_"+((current_list + 1) % 2)).removeClass("list_selected");
 }
 
 function add_item_to_list(item) {
-	var myList = "581fafe836e0ef68e2777f67";
 	var newCard = {
 	  name: item, 
-	  idList: myList,
+	  idList: shopping_urls[current_list],
 	  pos: 'top'
 	};
-	Trello.post('/cards/', newCard, loadShopping);
+    console.log(shopping_urls[current_list]);
+    console.log(shopping_urls);
+    console.log(current_list);
+	Trello.post('/cards/', newCard, load_lists);
 }
 
 function close_card(name) {
 	index = -1;
-	for (key in shopping_list) {
-		if (name == shopping_list[key]) {
+	for (key in shopping_list[current_list]) {
+		if (name == shopping_list[current_list][key]) {
 			index = key;
 			break;
 		}
 	}
+    console.log(key);
 	if (index != -1) {
-		console.log(name + ' has index ' + index + ' and id ' + shopping_list_ids[key]);
-		Trello.put('/cards/'+shopping_list_ids[key], {closed: true}, loadShopping);
+		console.log(name + ' has index ' + index + ' and id ' + shopping_list_ids[current_list][key]);
+		Trello.put('/cards/'+shopping_list_ids[current_list][key], {closed: true}, load_lists);
 	}
 }
 
 function archive_all() {
-	Trello.post('/lists/581fafe836e0ef68e2777f67/archiveAllCards', loadShopping);
-}
-
-function updateList(item) {
-	// $.ajax({
-	// 	url: "/update_shopping",
-	// 	type: "post",
-	// 	data: "item="+item,
-	// 	datatype: "json"
-	// }).done(function(tmp_data) {
-	// 	console.log('posted, loading')
-	// 	displayShopping(tmp_data);
-	// });
+    url = '/lists/' + shopping_urls[current_list] + '/archiveAllCards';
+	Trello.post(url, loadShopping);
 }
 
 var counter = 0;
@@ -67,10 +76,12 @@ function lookupCode(code) {
 		datatype: "json"
 	}).done(function(tmp_data) {
 		code = $("#codefield").val();
-		console.log(code);
 		if (code == "000000000017") {
 			// updateList("remove 1");
-			console.log("Cant remove");
+   			// console.log("Cant remove");
+            console.log("Switching lists");
+            current_list = (++current_list) % 2;
+            highlight_list();
 		}
 		else if (code == "000000000024") {
 			// updateList("remove 5");	
@@ -85,7 +96,7 @@ function lookupCode(code) {
 			data = $.parseJSON(tmp_data);
 			if (code in data) {
 				console.log("Barcode resolves to " + data[code]);
-				if (shopping_list.indexOf(data[code]) >= 0) {
+				if (shopping_list[current_list].indexOf(data[code]) >= 0) {
 					console.log("Item already in shopping list, removing");
 					close_card(data[code]);
 				}
@@ -98,25 +109,48 @@ function lookupCode(code) {
 			}
 		}
 		$("#codefield").val('');
-		document.getElementById('codefield').focus();
+		//document.getElementById('codefield').focus();
 	});	
 }
 
 
-function loadShopping() {
-	Trello.get('/lists/581fafe836e0ef68e2777f67/cards', parseShopping, error)
+function loadShopping(list_id) {
+    url = '/lists/' + shopping_urls[list_id] + '/cards';
+	Trello.get(url, parseShopping, error)
+}
+
+function load_lists() { 
+    shopping_list = [[], []];
+    shopping_list_ids = [[], []];
+    loadShopping(0);
+    loadShopping(1);
+    displayShopping();
+	document.getElementById('codefield').focus();
+}
+
+function start_list_loader() {
+    load_lists()
+	setTimeout(start_list_loader, 1000 * 60 * 5);
+	document.getElementById('codefield').focus();
 }
 
 function parseShopping(data) {
-	shopping_list = []
-	shopping_list_ids = []
-	for (key in data) {
-		console.log(data[key])
-		shopping_list.push(data[key]['name'])
-		shopping_list_ids.push(data[key]['id'])
-	}
+    list_id = -1;
+    if (data.length > 0) {
+        list_id = shopping_urls.indexOf(data[0]['idList']);
+    }
+    if (list_id == -1) {
+        console.log("Couldnt get the list id");
+        return;
+    }
+    else {
+    	for (key in data) {
+    		shopping_list[list_id].push(data[key]['name'])
+    		shopping_list_ids[list_id].push(data[key]['id'])
+    	}
+        shopping_queued[list_id] = true;
+    }
 	displayShopping();
-	setTimeout(loadShopping, 1000 * 60 * 5);
 }
 
 $("html").keyup(function(event){
@@ -124,8 +158,6 @@ $("html").keyup(function(event){
 		lookupCode($("#codefield").val());
 	}
 })
-
-// loadShopping();
 
 var success = function(successMsg) {
   console.log(successMsg);
@@ -135,8 +167,8 @@ var error = function(errorMsg) {
   console.log(errorMsg);
 };
 
-var authenticationSuccess = function() { 
-	loadShopping();
+var authenticationSuccess = function() {
+    load_lists();
 };
 
 var authenticationFailure = function() { console.log("Failed authentication"); };
