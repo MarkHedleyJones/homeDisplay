@@ -140,11 +140,11 @@ textarea {
 }
 
 .dashboard-piece .list_selector h2 {
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.5);
 }
 
 .dashboard-piece .list_selector.list_selected h2 {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 1);
 }
 
 .dashboard-banner {
@@ -161,7 +161,7 @@ textarea {
 }
 
 .dashboard-banner h1 {
-    font-family: "Liberation Sans";
+    font-family: "Sans";
     margin: 0;
     padding-top: 15px;
     font-size: 3em;
@@ -208,7 +208,7 @@ textarea {
 .dashboard-piece h2 {
     /*line-height: 300px;*/
     /*font-size: 3.6em;*/
-    font-family: "Liberation Sans";
+    font-family: "Sans";
     margin: 0 0 15px 0;
     font-size: 1.8em;
     color: rgba(255, 255, 255, 0.5);
