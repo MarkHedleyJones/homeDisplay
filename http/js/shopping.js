@@ -41,9 +41,6 @@ function add_item_to_list(item) {
 	  idList: shopping_urls[current_list],
 	  pos: 'top'
 	};
-    console.log(shopping_urls[current_list]);
-    console.log(shopping_urls);
-    console.log(current_list);
 	Trello.post('/cards/', newCard, load_lists);
 }
 
@@ -123,7 +120,7 @@ function lookupCode(code) {
 			}
 		}
 		$("#codefield").val('');
-		//document.getElementById('codefield').focus();
+		document.getElementById('codefield').focus();
 	});	
 }
 
@@ -168,7 +165,6 @@ function parseShopping(data) {
 
 $("html").keyup(function(event){
 	if(event.keyCode == 13) {
-        console.log("oienoienoien");
 		lookupCode($("#codefield").val());
 	}
 })
@@ -201,3 +197,5 @@ Trello.authorize({
 
 
 document.getElementById('codefield').focus();
+
+start_list_loader();
