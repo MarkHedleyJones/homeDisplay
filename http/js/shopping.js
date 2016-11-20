@@ -69,43 +69,57 @@ function archive_all() {
 
 var counter = 0;
 
+function add_remove_item(item) {
+    if (shopping_list[current_list].indexOf(item) >= 0) {
+    	console.log("Item already in shopping list, removing");
+    	close_card(item);
+    }
+    else {
+    	console.log("Adding item to shopping list");
+    	add_item_to_list(item);
+    }
+}
+
 function lookupCode(code) {
-	
 	$.ajax({
 		url: "https://raw.githubusercontent.com/markjones112358/Household-Barcode-Database/master/barcodes.json",
 		datatype: "json"
 	}).done(function(tmp_data) {
 		code = $("#codefield").val();
-		if (code == "000000000017") {
-			// updateList("remove 1");
-   			// console.log("Cant remove");
+		if (code == "9410000000015") {
             console.log("Switching lists");
             current_list = (++current_list) % 2;
             highlight_list();
 		}
-		else if (code == "000000000024") {
-			// updateList("remove 5");	
-			console.log("Cant remove");
-		}
-		else if (code == "000000000031") {
-			// updateList("reset");	
-			// console.log("Cant remove");
+		//else if (code == "9410000000022") {
+		//	console.log("Cant remove");
+		//}
+		else if (code == "9410000000022") {
 			archive_all();
 		}
+        else if (code == "4935850351001") {
+            add_remove_item("Bananas");
+        }
+        else if (code == "9410000000114") {
+            add_remove_item("Avocado");
+        }
+        else if (code == "9415077094332") {
+            add_remove_item("Tin foil");
+        }
+        else if (code == "9410000000138") {
+            add_remove_item("Baby mayo");
+        }
+        else if (code == "9410000000121") {
+            add_remove_item("Toothpaste");
+        }
+        else if (code == "9414812091988") {
+            add_remove_item("Toilet paper");
+        }
 		else {
 			data = $.parseJSON(tmp_data);
 			if (code in data) {
 				console.log("Barcode resolves to " + data[code]);
-				if (shopping_list[current_list].indexOf(data[code]) >= 0) {
-					console.log("Item already in shopping list, removing");
-					close_card(data[code]);
-				}
-				else {
-					console.log("Adding item to shopping list");
-					add_item_to_list(data[code]);
-				}
-				
-				// updateList(data[code]);
+			    add_remove_item(data[code]);	
 			}
 		}
 		$("#codefield").val('');
@@ -141,7 +155,6 @@ function parseShopping(data) {
     }
     if (list_id == -1) {
         console.log("Couldnt get the list id");
-        return;
     }
     else {
     	for (key in data) {
@@ -155,6 +168,7 @@ function parseShopping(data) {
 
 $("html").keyup(function(event){
 	if(event.keyCode == 13) {
+        console.log("oienoienoien");
 		lookupCode($("#codefield").val());
 	}
 })
