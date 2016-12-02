@@ -3,7 +3,7 @@ months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augus
 
 var shopping_list = [[], []];
 var shopping_list_ids = [[],[]];
-var shopping_queued = [false, false];
+var shopping_queued = 0;
 var shopping_urls = [
    '581fafe836e0ef68e2777f67',
    '582fdea3aeeca26b9064c5c6'
@@ -12,6 +12,7 @@ var shopping_urls = [
 current_list = 0;
 
 function displayShopping() {
+	console.log("Displaying lists");
     for (list_id = 0; list_id < 2; list_id++) {
     	data = shopping_list[list_id];
     	$("#shopping_"+list_id).html("");
@@ -22,12 +23,16 @@ function displayShopping() {
         	}
         }
         else {
-            out += '<li>No items</li>';
+			// Dont display anything
         }
     	out += '</ul>';
     	$("#shopping_"+list_id).html(out);
     }
     highlight_list();
+	//displayShopping();
+	document.getElementById('codefield').focus();
+	console.log("Setting load list timer");
+	setTimeout(load_lists, 1000 * 60 * 5);
 }
 
 function highlight_list() {
@@ -130,37 +135,39 @@ function loadShopping(list_id) {
 	Trello.get(url, parseShopping, error)
 }
 
-function load_lists() { 
+function load_lists() {
+	console.log("Resetting cache and loading lists");
     shopping_list = [[], []];
     shopping_list_ids = [[], []];
     loadShopping(0);
     loadShopping(1);
-    displayShopping();
-	document.getElementById('codefield').focus();
+    //Parse shopping takes care of displaying once both calls are done
 }
 
-function start_list_loader() {
-    load_lists()
-	setTimeout(start_list_loader, 1000 * 60 * 5);
-	document.getElementById('codefield').focus();
-}
-
-function parseShopping(data) {
+function parseShopping(data, other, more) {
+	console.log("Parsing returned list data...");
+	console.log(data);
+	console.log(other);
+	console.log(more);
     list_id = -1;
     if (data.length > 0) {
         list_id = shopping_urls.indexOf(data[0]['idList']);
     }
     if (list_id == -1) {
-        console.log("Couldnt get the list id");
+        console.log("Couldnt get the list id - possibly the list is empty");
+        shopping_queued++;
     }
     else {
     	for (key in data) {
     		shopping_list[list_id].push(data[key]['name'])
     		shopping_list_ids[list_id].push(data[key]['id'])
     	}
-        shopping_queued[list_id] = true;
+        shopping_queued++;
     }
-	displayShopping();
+    if (shopping_queued == 2) {
+		displayShopping();
+		shopping_queued = 0;
+	}
 }
 
 $("html").keyup(function(event){
@@ -179,6 +186,7 @@ var error = function(errorMsg) {
 
 var authenticationSuccess = function() {
     load_lists();
+    console.log("Starting the lost loader");
 };
 
 var authenticationFailure = function() { console.log("Failed authentication"); };
@@ -198,4 +206,4 @@ Trello.authorize({
 
 document.getElementById('codefield').focus();
 
-start_list_loader();
+
