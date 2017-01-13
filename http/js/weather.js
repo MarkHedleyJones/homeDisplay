@@ -73,7 +73,7 @@ function loadWeather(data) {
 
 	// out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	$("#weather_card1 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[0].forecastWord));
-	$("#weather_card1 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[0].forecast);
+	$("#weather_card1 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[0].forecast + '. Currently ' + data.HOURLY_OBS_AND_FORCAST.forecastData[data.HOURLY_OBS_AND_FORCAST.forecastData.length - 1]['temperature'] + ' degrees.');
 	$("#weather_card1 .mdl-card__supporting-text .high").html(data.LOCAL_FORECAST.days[0].max);
 	$("#weather_card1 .mdl-card__supporting-text .low").html(data.LOCAL_FORECAST.days[0].min);
 
@@ -196,6 +196,7 @@ function loadWeather(data) {
 			fill: false,
 			lineTension: 0.1,
 			borderColor: "#fff",
+			backgroundColor: "rgba(0,0,0,0.3)",
 			borderCapStyle: 'butt',
 			borderDash: [],
 			borderDashOffset: 0.0,

@@ -67,7 +67,7 @@ function renderDate() {
 		mins = "0" + mins
 	}
 	$("#date").html(days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()]);
-	$("#time").html(hours + ':' + mins + ' ' + ext);
+	$("#time").html(hours + ':' + mins + ' <span>' + ext + '</span>');
 	setTimeout(renderDate, 1000);
 }
 

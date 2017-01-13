@@ -27,7 +27,7 @@ function displayShopping() {
         }
         else {
             $("#shopping_"+list_id).addClass('empty-list');
-			out = 'Nothing to buy';
+			out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been bought</span>';
         }
 
     	$("#shopping_"+list_id + ' .mdl-card__supporting-text').html(out);
