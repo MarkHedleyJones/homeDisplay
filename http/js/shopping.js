@@ -34,7 +34,7 @@ function displayShopping() {
     }
     highlight_list();
 	//displayShopping();
-	// document.getElementById('codefield').focus();
+	document.getElementById('codefield').focus();
 	console.log("Setting load list timer");
 	setTimeout(load_lists, 1000 * 60 * 5);
 }
@@ -216,6 +216,6 @@ Trello.authorize({
 
 
 
-// document.getElementById('codefield').focus();
+document.getElementById('codefield').focus();
 
 

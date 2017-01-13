@@ -150,10 +150,6 @@ function loadWeather(data) {
 		},
 		scales: {
 	        yAxes: [{
-	        	display: false,
-				gridLines: {
-					display: false
-				},
 	        	stacked: true,
 	            ticks: {
 
