@@ -4,3 +4,18 @@
 .weather_blue {
     color: #7FC4E2
 }
+
+.cloudy {background-image: url('/img/weather/cloudy.svg');}
+.drizzle {background-image: url('/img/weather/drizzle.svg');}
+.few-showers {background-image: url('/img/weather/few-showers.svg');}
+.fine {background-image: url('/img/weather/fine.svg');}
+.fog {background-image: url('/img/weather/fog.svg');}
+.hail {background-image: url('/img/weather/hail.svg');}
+
+.partly-cloudy {background-image: url('/img/weather/partly-cloudy.svg');}
+.rain {background-image: url('/img/weather/rain.svg');}
+.showers {background-image: url('/img/weather/showers.svg');}
+.snow {background-image: url('/img/weather/snow.svg');}
+.thunder {background-image: url('/img/weather/thunder.svg');}
+.windy {background-image: url('/img/weather/wind.svg');}
+.wind {background-image: url('/img/weather/wind.svg');}

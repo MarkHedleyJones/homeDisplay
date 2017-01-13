@@ -15,34 +15,46 @@ function displayShopping() {
 	console.log("Displaying lists");
     for (list_id = 0; list_id < 2; list_id++) {
     	data = shopping_list[list_id];
-    	$("#shopping_"+list_id).html("");
-    	out = '<ul>';
+    	$("#shopping_"+list_id + ' .mdl-card__supporting-text').html("");
+
         if (data.length > 0) {
+            out = '<ul class="demo-list-item mdl-list">';
+            $("#shopping_"+list_id).removeClass('empty-list');
         	for (i = 0; i< data.length; i++) {
-        		out += '<li>' + data[i] + '</li>';
+        		out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
         	}
+            out += '</ul>';
         }
         else {
-			// Dont display anything
+            $("#shopping_"+list_id).addClass('empty-list');
+			out = 'Nothing to buy';
         }
-    	out += '</ul>';
-    	$("#shopping_"+list_id).html(out);
+
+    	$("#shopping_"+list_id + ' .mdl-card__supporting-text').html(out);
     }
     highlight_list();
 	//displayShopping();
-	document.getElementById('codefield').focus();
+	// document.getElementById('codefield').focus();
 	console.log("Setting load list timer");
 	setTimeout(load_lists, 1000 * 60 * 5);
 }
 
 function highlight_list() {
-    $("#list_"+current_list).addClass("list_selected");
-    $("#list_"+((current_list + 1) % 2)).removeClass("list_selected");
+    $("#shopping_"+current_list).addClass("list-selected");
+    $("#shopping_"+current_list).addClass("mdl-shadow--4dp");
+    $("#shopping_"+current_list).removeClass("mdl-shadow--1dp");
+    $("#shopping_"+current_list + " .mdl-card__title i").html("radio_button_checked");
+    $("#shopping_"+((current_list + 1) % 2)).removeClass("list-selected");
+    $("#shopping_"+((current_list + 1) % 2)).removeClass("mdl-shadow--4dp");
+    $("#shopping_"+((current_list + 1) % 2)).addClass("mdl-shadow--1dp");
+    console.log("#shopping_"+((current_list + 1) % 2)+ " .mdl-card__title i");
+    $("#shopping_"+((current_list + 1) % 2)+ " .mdl-card__title i").html("radio_button_unchecked");
+
 }
 
 function add_item_to_list(item) {
 	var newCard = {
-	  name: item, 
+	  name: item,
 	  idList: shopping_urls[current_list],
 	  pos: 'top'
 	};
@@ -121,12 +133,12 @@ function lookupCode(code) {
 			data = $.parseJSON(tmp_data);
 			if (code in data) {
 				console.log("Barcode resolves to " + data[code]);
-			    add_remove_item(data[code]);	
+			    add_remove_item(data[code]);
 			}
 		}
 		$("#codefield").val('');
 		document.getElementById('codefield').focus();
-	});	
+	});
 }
 
 
@@ -204,6 +216,6 @@ Trello.authorize({
 
 
 
-document.getElementById('codefield').focus();
+// document.getElementById('codefield').focus();
 
 

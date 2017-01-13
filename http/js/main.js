@@ -54,11 +54,6 @@ function date_word(number) {
 
 function renderDate() {
 	var d = new Date();
-	out = '<h1 style="width: auto; text-align: left; float: left; margin-left: 35px">';
-	out += days[d.getDay()] + " " + d.getDate()
-	out += "<sup>" + date_word(d.getDate()) + "</sup> "
-	out += months[d.getMonth()]
-	out += "</h1>"
 	hours = d.getHours()
 	pm = false;
 	if (hours >= 12) {
@@ -71,8 +66,8 @@ function renderDate() {
 	if (d.getMinutes() < 10) {
 		mins = "0" + mins
 	}
-	out += '<h2 style="float: right; font-family: \'Liberation Sans\'; margin: 0 50px 0 0; padding-top: 15px; font-size: 3.0em">' + hours + ':' + mins + ' ' + ext + '</h2>'
-	$("#banner").html(out);
+	$("#date").html(days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()]);
+	$("#time").html(hours + ':' + mins + ' ' + ext);
 	setTimeout(renderDate, 1000);
 }
 

@@ -1,50 +1,14 @@
-/*
-	Row 2 = -350
-	Row 1 = -240
+.cloudy {background-image: url('/img/weather/cloudy.svg');}
+.drizzle {background-image: url('/img/weather/drizzle.svg');}
+.few-showers {background-image: url('/img/weather/few-showers.svg');}
+.fine {background-image: url('/img/weather/fine.svg');}
+.fog {background-image: url('/img/weather/fog.svg');}
+.hail {background-image: url('/img/weather/hail.svg');}
 
-
-*/
-.icon.lrg {
-	width: 150px;
-	height: 110px;
-	background:url(/img/sprite-3.0.434.png);
-	/*display: inline-block;*/
-	float: left;
-}
-
-.lrg.cloudy {background-position:0 -130px}
-.lrg.drizzle {background-position:-150px -130px}
-.lrg.few-showers {background-position:-300px -130px}
-.lrg.fine {background-position:-450px -130px}
-.lrg.fog {background-position:-600px -130px}
-.lrg.hail {background-position:-750px -130px}
-
-.lrg.partly-cloudy {background-position: 0 -240px}
-.lrg.rain {background-position: -150px -240px}
-.lrg.showers {background-position:-300px -240px}
-.lrg.snow {background-position:-450px -240px}
-.lrg.thunder {background-position:-600px -240px}
-.lrg.windy {background-position:-750px -240px}
-.lrg.wind {background-position:-750px -240px}
-
-.icon.sm {
-	width: 60px;
-	height: 57px;
-	background:url(/img/sprite-3.0.434.png);
-	float: left;
-}
-
-.sm.cloudy {background-position:0 0}
-.sm.drizzle {background-position:-60px 0}
-.sm.few-showers {background-position:-120px 0}
-.sm.fine {background-position:-180px 0}
-.sm.fog {background-position:-240px 0}
-.sm.hail {background-position:-300px 0}
-.sm.partly-cloudy {background-position:-360px 0}
-.sm.rain {background-position:-420px 0}
-.sm.showers {background-position:-480px 0}
-.sm.snow {background-position:-540px 0}
-.sm.thunder {background-position:-600px 0}
-.sm.windy {background-position:-660px 0}
-.sm.wind {background-position:-660px 0}
-
+.partly-cloudy {background-image: url('/img/weather/partly-cloudy.svg');}
+.rain {background-image: url('/img/weather/rain.svg');}
+.showers {background-image: url('/img/weather/showers.svg');}
+.snow {background-image: url('/img/weather/snow.svg');}
+.thunder {background-image: url('/img/weather/thunder.svg');}
+.windy {background-image: url('/img/weather/wind.svg');}
+.wind {background-image: url('/img/weather/wind.svg');}
