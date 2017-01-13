@@ -1,6 +1,6 @@
-# DOW=$(date +%u)
-# HOUR=$(date +%H)
-# MIN=$(date +%M)
+DOW=$(date +%u)
+HOUR=$(date +%H)
+MIN=$(date +%M)
 
 # Timer settings
 # Mon-Fri
@@ -13,9 +13,9 @@
 # ON  =  5:30
 # OFF = 21:30
 
-DOW=$1
-HOUR=$2
-MIN=$3
+#DOW=$1
+#HOUR=$2
+#MIN=$3
 
 MIN_LATE=$(expr $MIN + 2)
 WEEKDAY=1
@@ -91,4 +91,4 @@ else
     fi
 fi
 echo "$SHUTDOWN"
-# at -f /home/pi/shutdown_script.sh $SHUTDOWN
+at -f /home/pi/shutdown_script.sh $SHUTDOWN
