@@ -135,6 +135,10 @@ function lookupCode(code) {
 				console.log("Barcode resolves to " + data[code]);
 			    add_remove_item(data[code]);
 			}
+            else {
+                console.log("Unknown barcode, add to Trello")
+                add_remove_item(code + " = ");
+            }
 		}
 		$("#codefield").val('');
 		document.getElementById('codefield').focus();
