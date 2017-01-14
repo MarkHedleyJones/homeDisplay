@@ -21,7 +21,19 @@ function displayShopping() {
             out = '<ul class="demo-list-item mdl-list">';
             $("#shopping_"+list_id).removeClass('empty-list');
         	for (i = 0; i< data.length; i++) {
-        		out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                if (data[i].indexOf(" = ") != -1) {
+                    if (data[i].length - 3 == data[i].indexOf(" = ")) {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>Unknown item (...'+data[i].substr(-5, 2) +')</span></li>';
+                    }
+                    else {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i].substr(data[i].indexOf(" = ")+3) + '</span></li>';
+                        // Send an update to the server on this item
+                    }
+                }
+                else {
+                    out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                }
+
         	}
             out += '</ul>';
         }
@@ -36,7 +48,7 @@ function displayShopping() {
 	//displayShopping();
 	document.getElementById('codefield').focus();
 	console.log("Setting load list timer");
-	setTimeout(load_lists, 1000 * 60 * 5);
+	setTimeout(load_lists, 1000 * 60 * 1);
 }
 
 function highlight_list() {
