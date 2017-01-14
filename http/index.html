@@ -22,7 +22,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Material Design Lite</title>
+    <title>Home Interface</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -219,8 +219,21 @@
         font-size: 18pt;
     }
 
-    #date {
-        /*font-weight: 700*/
+    .happy_sun {
+        margin: 43px 0 0 143px;
+    }
+
+    .happy_sun span {
+        font-size: 18pt;
+    }
+
+    #current_temp {
+        position: absolute;
+        right: 247px;
+        top: 28px;
+        font-size: 24pt;
+        font-weight: 700;
+        color: #DFE1D3;
     }
 
 
@@ -244,8 +257,9 @@
             <div id="weather_card1" class="weather mdl-card mdl-cell mdl-shadow--2dp mdl-cell--6-col">
               <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text">Today</h2>
-                <div style="display: block; position: absolute; left: 30px; height: 128px; top: 60px;">
-                    <canvas id="myChart" width="470"></canvas>
+                <div id="current_temp"></div>
+                <div id="rain_display" style="display: block; position: absolute; left: 30px; height: 128px; top: 60px;">
+                    <!-- <canvas id="myChart" width="470"></canvas> -->
                 </div>
               </div>
               <div class="mdl-card__supporting-text">

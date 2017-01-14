@@ -73,9 +73,10 @@ function loadWeather(data) {
 
 	// out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
 	$("#weather_card1 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[0].forecastWord));
-	$("#weather_card1 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[0].forecast + '. Currently ' + data.HOURLY_OBS_AND_FORCAST.forecastData[data.HOURLY_OBS_AND_FORCAST.forecastData.length - 1]['temperature'] + ' degrees.');
+	$("#weather_card1 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[0].forecast);
 	$("#weather_card1 .mdl-card__supporting-text .high").html(data.LOCAL_FORECAST.days[0].max);
 	$("#weather_card1 .mdl-card__supporting-text .low").html(data.LOCAL_FORECAST.days[0].min);
+	$("#current_temp").html(data.HOURLY_OBS_AND_FORCAST.forecastData[data.HOURLY_OBS_AND_FORCAST.forecastData.length - 1]['temperature'])
 
 	$("#weather_card2 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[1].forecastWord));
 	$("#weather_card2 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')));
@@ -138,44 +139,6 @@ function loadWeather(data) {
 	// out += '	<span style="font-size: 11pt">' + data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')) + '.</span>';
 	// out += '</div>';
 
-
-	var ctx = $("#myChart");
-
-	var options = {
-		showLines: true,
-		spanGaps: false,
-		legend: false,
-		animation: {
-			duration: 0
-		},
-		scales: {
-	        yAxes: [{
-	        	stacked: true,
-	            ticks: {
-
-	                fontColor: "#fff",
-	                fontSize: 14,
-	                // stepSize: 1,
-	                beginAtZero:true
-	            }
-	        }],
-	        xAxes: [{
-				gridLines: {
-					display: false
-				},
-	        	stacked: true,
-	        	categoryPercentage: 1,
-	        	barPercentage: 1,
-	            ticks: {
-	                fontColor: "#fff",
-	                fontSize: 14,
-	                stepSize: 1,
-	                beginAtZero:true
-	            }
-	        }],
-    	}
-	};
-
 	var graph_data = {
 		labels: [
 		"2am",
@@ -217,21 +180,69 @@ function loadWeather(data) {
 
 	for (var i=0; i<data.HOURLY_OBS_AND_FORCAST.actualData.length; i++) {
 		graph_data.datasets[0].data.push(parseFloat(data.HOURLY_OBS_AND_FORCAST.actualData[i].rainFall))
-		// console.log(i);
 	}
 	for (var i=0; i<data.HOURLY_OBS_AND_FORCAST.forecastData.length; i++) {
 		if (data.HOURLY_OBS_AND_FORCAST.forecastData[i].offset < 13) {
 			graph_data.datasets[0].data.push(parseFloat(data.HOURLY_OBS_AND_FORCAST.forecastData[i].rainFall))
 		}
-		// console.log(i);
 	}
-	console.log(graph_data);
 
-	var myChart = new Chart(ctx, {
-	    type: 'bar',
-	    data: graph_data,
-	    options: options
-	});
+	drawGraph = false;
+	for (var i=0; i < graph_data.datasets[0].data.length; i++) {
+		if (graph_data.datasets[0].data[i] > 0) drawGraph = true;
+	}
+
+	if (drawGraph) {
+		$("#rain_display").html('<canvas id="myChart" width="470"></canvas>');
+		var ctx = $("#myChart");
+		var options = {
+			showLines: true,
+			spanGaps: false,
+			legend: false,
+			animation: {
+				duration: 0
+			},
+			scales: {
+		        yAxes: [{
+		        	stacked: true,
+		            ticks: {
+
+		                fontColor: "#fff",
+		                fontSize: 14,
+		                // stepSize: 1,
+		                beginAtZero:true
+		            }
+		        }],
+		        xAxes: [{
+					gridLines: {
+						display: false
+					},
+		        	stacked: true,
+		        	categoryPercentage: 1,
+		        	barPercentage: 1,
+		            ticks: {
+		                fontColor: "#fff",
+		                fontSize: 14,
+		                stepSize: 1,
+		                beginAtZero:true
+		            }
+		        }],
+	    	}
+		};
+
+		var myChart = new Chart(ctx, {
+		    type: 'bar',
+		    data: graph_data,
+		    options: options
+		});
+	}
+	else {
+		out = '<div class="happy_sun"><i class="material-icons mdl-list__item-icon" style="color: #fff">wb_sunny</i>';
+		out += '<span>No rain</span>';
+		$("#rain_display").html(out);
+	}
+
+
 }
 
 function trigger_weather() {
