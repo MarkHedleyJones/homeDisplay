@@ -242,6 +242,13 @@
     </style>
   </head>
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+
+    <button id="demo-show-toast" class="mdl-button mdl-js-button mdl-button--raised" type="button">Show Toast</button>
+    <div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <header id="banner" class="mdl-layout__header mdl-color--primary mdl-grid">
         <div class="mdl-cell--6-col">
@@ -377,6 +384,17 @@
         caleandar(element, [], {});
     </script>
     <script src="js/shopping.js"></script>
+    <script>
+      var snackbarContainer = document.querySelector('#demo-toast-example');
+      var showToastHandle = document.querySelector('main');
+
+      function display_toast_msg(msg) {
+        setTimeout(function() {
+            var data;
+            snackbarContainer.MaterialSnackbar.showSnackbar({message: msg});
+        });
+      }
+    </script>
   </body>
 </html>
 

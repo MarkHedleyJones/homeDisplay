@@ -4,6 +4,7 @@ import json
 import modules.weather
 import time
 import os
+import subprocess
 app = Flask(__name__)
 
 
@@ -56,6 +57,54 @@ def weather():
 		print("No cache exists, returning fresh download")
 		return Response(json.dumps(download_weather()), mimetype='application/json')
 
+@app.route("/set_barcode", methods=['POST', 'GET'])
+def set_barcode():
+	print("/set_barcode")
+	barcode = request.args.get('barcode')
+	description = request.args.get('description')
+	print(request.args.get('barcode'))
+	print(barcode, description)
+
+	# The source file may be incorrectly configured or missing
+	if os.path.exists("../Household-Barcode-Database/source.txt"):
+
+		line = description + ";" + barcode + "\n"
+		needs_saving = True
+		needs_newline = False
+		# Check the source file doesn't contain this line already
+		with open("../Household-Barcode-Database/source.txt", "r") as f:
+			codes = f.readlines()
+			if line in codes:
+				needs_saving = False
+
+			if codes[-1][-1] != '\n':
+				needs_newline = True
+
+
+
+		if needs_saving:
+			print("Needs saving")
+		else:
+			print("Does not need saving!!!")
+
+		if needs_newline:
+			print("Needs newline")
+		else:
+			print("Does not need newline!!!")
+
+		if needs_saving:
+			with open("../Household-Barcode-Database/source.txt", "a") as f:
+				if needs_newline:
+					f.write("\n")
+				f.write(line)
+
+			os.system(" ".join(["cd", "../Household-Barcode-Database", "&&", "python", "convert_txt_to_json.py"]))
+			os.system(" ".join(["cd", "../Household-Barcode-Database", "&&", "git", "add", ".", "&&", "git", "commit", "-m", '"Interface added barcode"', "&&", "git", "push"]))
+
+			return "Barcode saved;"+line[:-1]
+		else:
+			return "Barcode saved;"+line[:-1]
+	return "Barcode saving not configured correctly"
 
 @app.route("/get_shopping")
 def get_shopping():
