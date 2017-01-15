@@ -70,7 +70,16 @@ function renderDate() {
 	}
 	$("#date").html(days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()]);
 	$("#time").html(hours + ':' + mins + ' <span>' + ext + '</span>');
+
 	setTimeout(renderDate, 1000);
 }
 
+function renderCalendar() {
+	$('#caleandar').html("");
+	var element = document.getElementById('caleandar');
+    caleandar(element, [], {});
+    setTimeout(renderCalendar, 1000*60*5);
+}
+
+renderCalendar();
 renderDate();
