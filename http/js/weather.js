@@ -5,6 +5,7 @@ function toTitleCase(str)
 
 var weatherIconNameMapping={
 	Cloud:"cloudy",
+	Cloudy:"cloudy",
 	Drizzle:"drizzle",
 	FewShowers:"few-showers",
 	Fine:"fine",
@@ -72,23 +73,31 @@ function loadWeather(data) {
 
 
 	// out += '<div style="width: auto; min-height: 90px; text-align: left; margin: 20px; position: relative; display: block">';
+	$("#weather_card1 .mdl-card__title").attr("class", "mdl-card__title");
 	$("#weather_card1 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[0].forecastWord));
+	$("#weather_card1 .mdl-card__title-text").html(data.LOCAL_FORECAST.days[0].dow);
 	$("#weather_card1 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[0].forecast);
 	$("#weather_card1 .mdl-card__supporting-text .high").html(data.LOCAL_FORECAST.days[0].max);
 	$("#weather_card1 .mdl-card__supporting-text .low").html(data.LOCAL_FORECAST.days[0].min);
 	$("#current_temp").html(data.HOURLY_OBS_AND_FORCAST.forecastData[data.HOURLY_OBS_AND_FORCAST.forecastData.length - 1]['temperature'] + "&deg;");
 
+	$("#weather_card2 .mdl-card__title").attr("class", "mdl-card__title");
 	$("#weather_card2 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[1].forecastWord));
+	$("#weather_card2 .mdl-card__title-text").html(data.LOCAL_FORECAST.days[1].dow);
 	$("#weather_card2 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[1].forecast.substr(0,data.LOCAL_FORECAST.days[1].forecast.indexOf('.')));
 	$("#weather_card2 .mdl-card__supporting-text .high").html(data.LOCAL_FORECAST.days[1].max);
 	$("#weather_card2 .mdl-card__supporting-text .low").html(data.LOCAL_FORECAST.days[1].min);
 
+	$("#weather_card3 .mdl-card__title").attr("class", "mdl-card__title");
 	$("#weather_card3 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[2].forecastWord));
 	$("#weather_card3 .mdl-card__title-text").html(data.LOCAL_FORECAST.days[2].dow);
 	$("#weather_card3 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[2].forecast.substr(0,data.LOCAL_FORECAST.days[2].forecast.indexOf('.')));
 	$("#weather_card3 .mdl-card__supporting-text .high").html(data.LOCAL_FORECAST.days[2].max);
 	$("#weather_card3 .mdl-card__supporting-text .low").html(data.LOCAL_FORECAST.days[2].min);
 
+	$("#weather_card4 .mdl-card__title").attr("class", "mdl-card__title");
+	console.log(get_iconName(data.LOCAL_FORECAST.days[3].forecastWord));
+	console.log(data.LOCAL_FORECAST.days[3].forecastWord);
 	$("#weather_card4 .mdl-card__title").addClass(get_iconName(data.LOCAL_FORECAST.days[3].forecastWord));
 	$("#weather_card4 .mdl-card__title-text").html(data.LOCAL_FORECAST.days[3].dow);
 	$("#weather_card4 .mdl-card__supporting-text .desc").html(data.LOCAL_FORECAST.days[3].forecast.substr(0,data.LOCAL_FORECAST.days[3].forecast.indexOf('.')));
