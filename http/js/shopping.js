@@ -8,6 +8,7 @@ var shopping_urls = [
    '587a9bbebfbb8e4d779a85fc',
    '582fdea3aeeca26b9064c5c6'
 ];
+var timer;
 
 current_list = 0;
 
@@ -56,7 +57,8 @@ function displayShopping() {
     console.log(barcodes_queue);
     if (barcodes_queue.length == 0) {
         console.log("No barcodes to save");
-        setTimeout(load_lists, 1000 * 60);
+        clearTimeout(timer);
+        timer = setTimeout(load_lists, 1000 * 10);
     }
     else {
         console.log("Barcodes to save");
@@ -64,7 +66,8 @@ function displayShopping() {
             console.log(barcodes_queue[i]['code'] + ' = ' + barcodes_queue[i]['desc']);
             save_barcode(barcodes_queue[i]['code'], barcodes_queue[i]['desc']);
         }
-        setTimeout(load_lists, 1000 * 10);
+        clearTimeout(timer);
+        timer = setTimeout(load_lists, 1000 * 10);
     }
 }
 
