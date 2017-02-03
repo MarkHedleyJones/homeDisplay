@@ -121,6 +121,9 @@ function renderCalendar() {
 	console.log(now.getDate());
 	var vege_week = false;
 	var anniversaries = {
+		"11-16": "Dave",
+		"4-30": "Jason",
+		"2-4": "Rob",
 		"10-25": "Mark",
 		"10-28": "Matthew",
 		"6-23": "Sarah",
@@ -139,7 +142,7 @@ function renderCalendar() {
 		"9-28": "Claire",
 		"10-1": "Callum",
 		"10-7": "Morag",
-		"8-26": "Nana",
+		"8-26": "Rosalie",
 		"3-15": "Wedding",
 		"1-1": "New Year",
 		"12-25": "Christmas",
