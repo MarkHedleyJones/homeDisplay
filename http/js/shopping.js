@@ -199,39 +199,29 @@ function lookupCode(code) {
 
 function loadShopping(list_id) {
     url = '/lists/' + shopping_urls[list_id] + '/cards';
-	Trello.get(url, parseShopping, error)
+	Trello.get(url, run_parseShopping(list_id), error)
 }
 
 function load_lists() {
 	console.log("Resetting cache and loading lists");
     shopping_list = [[], []];
     shopping_list_ids = [[], []];
-    loadShopping(0);
-    loadShopping(1);
-    //Parse shopping takes care of displaying once both calls are done
+    shopping_queued = 0;
+    for (var i=0; i<shopping_list.length; i++) {
+        console.log("Loading shopping list " + i);
+        loadShopping(i);
+    }
 }
 
-function parseShopping(data, other, more) {
-	console.log("Parsing returned list data...");
-    list_id = -1;
-    if (data.length > 0) {
-        list_id = shopping_urls.indexOf(data[0]['idList']);
+var run_parseShopping = function(list_id) {
+    return function parseShopping(data, other, more) {
+        shopping_queued |= (list_id + 1);
+        for (key in data) {
+            shopping_list[list_id].push(data[key]['name'])
+            shopping_list_ids[list_id].push(data[key]['id'])
+        }
+        if (shopping_queued == 3) displayShopping();
     }
-    if (list_id == -1) {
-        console.log("Couldnt get the list id - possibly the list is empty");
-        shopping_queued++;
-    }
-    else {
-    	for (key in data) {
-    		shopping_list[list_id].push(data[key]['name'])
-    		shopping_list_ids[list_id].push(data[key]['id'])
-    	}
-        shopping_queued++;
-    }
-    if (shopping_queued == 2) {
-		displayShopping();
-		shopping_queued = 0;
-	}
 }
 
 $("html").keyup(function(event){
