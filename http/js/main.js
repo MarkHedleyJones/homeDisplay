@@ -136,14 +136,14 @@ function renderCalendar() {
 		"7-30": "Shae",
 		"9-12": "Alistair",
 		"5-4": "Jonathan",
-		"3-3": "Florian",
+		"7-3": "Florian",
 		"1-23": "Lachlan",
 		"2-21": "Anthony",
 		"9-28": "Claire",
 		"10-1": "Callum",
 		"10-7": "Morag",
 		"8-26": "Rosalie",
-		"3-15": "Wedding",
+		"4-15": "Wedding",
 		"1-1": "New Year",
 		"12-25": "Christmas",
 		"12-26": "Boxing",
@@ -209,7 +209,7 @@ function renderCalendar() {
 				});
 			}
 		}
-		else if (d.getDay() == 2) {
+		else if (d.getDay() == 3) {
 			event_list["monthly"].push({
 				"name": "Japaneese",
 				"startdate": date_obj_to_str(d),

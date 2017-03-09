@@ -5,7 +5,7 @@ var shopping_list = [[], []];
 var shopping_list_ids = [[],[]];
 var shopping_queued = 0;
 var shopping_urls = [
-   '587a9bbebfbb8e4d779a85fc',
+   '581fafe836e0ef68e2777f67',
    '582fdea3aeeca26b9064c5c6'
 ];
 var timer;
