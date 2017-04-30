@@ -8,9 +8,32 @@ var shopping_urls = [
    '581fafe836e0ef68e2777f67',
    '582fdea3aeeca26b9064c5c6'
 ];
+
+var tasks_list = [];
+var tasks_url = '56948570275ef393558a2ef6';
 var timer;
 
 current_list = 0;
+
+function displayTasks() {
+    data = tasks_list;
+    console.log(tasks_list);
+    $("#tasks .mdl-card__supporting-text").html("");
+    if (data.length > 0) {
+        out = '<ul class="demo-list-item mdl-list">';
+        $("#tasks").removeClass('empty-list');
+        for (i = 0; i< data.length; i++) {
+            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+        }
+        out += '</ul>';
+    }
+    else {
+        $("#tasks").addClass('empty-list');
+        out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been done</span>';
+    }
+
+    $("#tasks .mdl-card__supporting-text").html(out);
+}
 
 function displayShopping() {
     barcodes_queue = []
@@ -205,14 +228,30 @@ function loadShopping(list_id) {
 	Trello.get(url, run_parseShopping(list_id), error)
 }
 
+function loadTasks() {
+    url = '/lists/' + tasks_url + '/cards';
+    Trello.get(url, run_parseTasks(), error)
+}
+
 function load_lists() {
 	console.log("Resetting cache and loading lists");
     shopping_list = [[], []];
     shopping_list_ids = [[], []];
     shopping_queued = 0;
+    tasks_list = [];
     for (var i=0; i<shopping_list.length; i++) {
         console.log("Loading shopping list " + i);
         loadShopping(i);
+    }
+    loadTasks();
+}
+
+var run_parseTasks = function() {
+    return function parseTasks(data, other, more) {
+        for (key in data) {
+            tasks_list.push(data[key]['name'])
+        }
+        displayTasks();
     }
 }
 
@@ -243,14 +282,13 @@ var error = function(errorMsg) {
 
 var authenticationSuccess = function() {
     load_lists();
-    console.log("Starting the lost loader");
 };
 
 var authenticationFailure = function() { console.log("Failed authentication"); };
 
 Trello.authorize({
   type: 'popup',
-  name: 'Getting Started Application',
+  name: 'homeDisplay',
   scope: {
     read: 'true',
     write: 'true' },
@@ -258,7 +296,6 @@ Trello.authorize({
   success: authenticationSuccess,
   error: authenticationFailure
 });
-
 
 
 document.getElementById('codefield').focus();
