@@ -1,13 +1,10 @@
 days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-var shopping_list = [[], []];
-var shopping_list_ids = [[],[]];
-var shopping_queued = 0;
-var shopping_urls = [
-   '581fafe836e0ef68e2777f67',
-   '582fdea3aeeca26b9064c5c6'
-];
+var shopping_list = [];
+var shopping_list_ids = [];
+// var shopping_queued = 0;
+var shopping_urls = '581fafe836e0ef68e2777f67';
 
 var tasks_list = [];
 var tasks_url = '56948570275ef393558a2ef6';
@@ -20,12 +17,41 @@ function displayTasks() {
     console.log(tasks_list);
     $("#tasks .mdl-card__supporting-text").html("");
     if (data.length > 0) {
-        out = '<ul class="demo-list-item mdl-list">';
-        $("#tasks").removeClass('empty-list');
-        for (i = 0; i< data.length; i++) {
-            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+        if (data.length > 7) {
+            out = '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+            $("#tasks").removeClass('empty-list');
+            for (i = 0; i < 7; i++) {
+                out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+            }
+            out += '</ul>';
+
+            if (data.length > 14) {
+                out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+                $("#tasks").removeClass('empty-list');
+                for (i = 7; i < 13; i++) {
+                    out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                }
+                out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>+' + (data.length - 13) + ' more</span></li>';
+                out += '</ul>';
+            }
+            else {
+                out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+                $("#tasks").removeClass('empty-list');
+                for (i = 7; i < data.length; i++) {
+                    out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                }
+                out += '</ul>';
+            }
+
         }
-        out += '</ul>';
+        else {
+            out = '<ul class="demo-list-item mdl-list">';
+            $("#tasks").removeClass('empty-list');
+            for (i = 0; i< data.length; i++) {
+                out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+            }
+            out += '</ul>';
+        }
     }
     else {
         $("#tasks").addClass('empty-list');
@@ -38,15 +64,16 @@ function displayTasks() {
 function displayShopping() {
     barcodes_queue = []
 	console.log("Displaying lists");
-    for (list_id = 0; list_id < 2; list_id++) {
-    	data = shopping_list[list_id];
-    	$("#shopping_"+list_id + ' .mdl-card__supporting-text').html("");
 
-        if (data.length > 0) {
-            out = '<ul class="demo-list-item mdl-list">';
-            $("#shopping_"+list_id).removeClass('empty-list');
-        	for (i = 0; i< data.length; i++) {
-                console.log("Looking at: " + data[i]);
+	data = shopping_list;
+	$("#shopping .mdl-card__supporting-text").html("");
+
+    if (data.length > 0) {
+        console.log(data.length);
+        if (data.length > 7) {
+            out = '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+            $("#shopping").removeClass('empty-list');
+            for (i = 0; i < 7; i++) {
                 if (data[i].indexOf(" = ") != -1) {
                     if (data[i].length - 3 == data[i].indexOf(" = ")) {
                         out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">help_outline</i>Unknown item (...'+data[i].substr(-5, 2) +')</span></li>';
@@ -63,17 +90,86 @@ function displayShopping() {
                     out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
                 }
 
-        	}
+            }
             out += '</ul>';
+
+            if (data.length > 14) {
+                out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+                for (i = 7; i < 13; i++) {
+                    if (data[i].indexOf(" = ") != -1) {
+                        if (data[i].length - 3 == data[i].indexOf(" = ")) {
+                            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">help_outline</i>Unknown item (...'+data[i].substr(-5, 2) +')</span></li>';
+                        }
+                        else {
+                            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">watch_later</i>' + data[i].substr(data[i].indexOf(" = ")+3) + '</span></li>';
+                            // Send an update to the server on this item
+                            item_desc = data[i].substr(data[i].indexOf(" = ")+3)
+                            item_barcode = data[i].substr(0, data[i].length - item_desc.length - 3);
+                            barcodes_queue.push({'code': item_barcode, 'desc': item_desc});
+                        }
+                    }
+                    else {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                    }
+                }
+                out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>+' + (data.length - 13) + ' more</span></li>';
+                out += '</ul>';
+            }
+            else {
+                out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
+                for (i = 7; i < data.length; i++) {
+                    if (data[i].indexOf(" = ") != -1) {
+                        if (data[i].length - 3 == data[i].indexOf(" = ")) {
+                            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">help_outline</i>Unknown item (...'+data[i].substr(-5, 2) +')</span></li>';
+                        }
+                        else {
+                            out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">watch_later</i>' + data[i].substr(data[i].indexOf(" = ")+3) + '</span></li>';
+                            // Send an update to the server on this item
+                            item_desc = data[i].substr(data[i].indexOf(" = ")+3)
+                            item_barcode = data[i].substr(0, data[i].length - item_desc.length - 3);
+                            barcodes_queue.push({'code': item_barcode, 'desc': item_desc});
+                        }
+                    }
+                    else {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                    }
+
+                }
+                out += '</ul>';
+            }
         }
         else {
-            $("#shopping_"+list_id).addClass('empty-list');
-			out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been bought</span>';
-        }
+            out = '<ul class="demo-list-item mdl-list">';
+            $("#shopping").removeClass('empty-list');
+            for (i = 0; i< data.length; i++) {
+                if (data[i].indexOf(" = ") != -1) {
+                    if (data[i].length - 3 == data[i].indexOf(" = ")) {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">help_outline</i>Unknown item (...'+data[i].substr(-5, 2) +')</span></li>';
+                    }
+                    else {
+                        out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">watch_later</i>' + data[i].substr(data[i].indexOf(" = ")+3) + '</span></li>';
+                        // Send an update to the server on this item
+                        item_desc = data[i].substr(data[i].indexOf(" = ")+3)
+                        item_barcode = data[i].substr(0, data[i].length - item_desc.length - 3);
+                        barcodes_queue.push({'code': item_barcode, 'desc': item_desc});
+                    }
+                }
+                else {
+                    out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
+                }
 
-    	$("#shopping_"+list_id + ' .mdl-card__supporting-text').html(out);
+            }
+            out += '</ul>';
+        }
     }
-    highlight_list();
+    else {
+        $("#shopping").addClass('empty-list');
+		out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been bought</span>';
+    }
+
+	$("#shopping .mdl-card__supporting-text").html(out);
+
+
 	//displayShopping();
 	document.getElementById('codefield').focus();
 	console.log("Setting load list timer");
@@ -128,7 +224,7 @@ function highlight_list() {
 function add_item_to_list(item, refresh=true) {
 	var newCard = {
 	  name: item,
-	  idList: shopping_urls[current_list],
+	  idList: shopping_url,
 	  pos: 'top'
 	};
     if (refresh) Trello.post('/cards/', newCard, load_lists);
@@ -144,13 +240,13 @@ function close_card(name, refresh=true) {
 		}
 	}
 	if (index != -1) {
-		if (refresh) Trello.put('/cards/'+shopping_list_ids[current_list][key], {closed: true}, load_lists);
-        else Trello.put('/cards/'+shopping_list_ids[current_list][key], {closed: true});
+		if (refresh) Trello.put('/cards/'+shopping_list_ids[key], {closed: true}, load_lists);
+        else Trello.put('/cards/'+shopping_list_ids[key], {closed: true});
 	}
 }
 
 function archive_all() {
-    url = '/lists/' + shopping_urls[current_list] + '/archiveAllCards';
+    url = '/lists/' + shopping_url + '/archiveAllCards';
 	Trello.post(url, load_lists);
 }
 
@@ -223,9 +319,9 @@ function lookupCode(code) {
 }
 
 
-function loadShopping(list_id) {
-    url = '/lists/' + shopping_urls[list_id] + '/cards';
-	Trello.get(url, run_parseShopping(list_id), error)
+function loadShopping() {
+    url = '/lists/' + shopping_urls + '/cards';
+	Trello.get(url, run_parseShopping(), error)
 }
 
 function loadTasks() {
@@ -235,14 +331,10 @@ function loadTasks() {
 
 function load_lists() {
 	console.log("Resetting cache and loading lists");
-    shopping_list = [[], []];
-    shopping_list_ids = [[], []];
-    shopping_queued = 0;
+    shopping_list = [];
+    shopping_list_ids = [];
     tasks_list = [];
-    for (var i=0; i<shopping_list.length; i++) {
-        console.log("Loading shopping list " + i);
-        loadShopping(i);
-    }
+    loadShopping();
     loadTasks();
 }
 
@@ -255,14 +347,13 @@ var run_parseTasks = function() {
     }
 }
 
-var run_parseShopping = function(list_id) {
+var run_parseShopping = function() {
     return function parseShopping(data, other, more) {
-        shopping_queued |= (list_id + 1);
         for (key in data) {
-            shopping_list[list_id].push(data[key]['name'])
-            shopping_list_ids[list_id].push(data[key]['id'])
+            shopping_list.push(data[key]['name'])
+            shopping_list_ids.push(data[key]['id'])
         }
-        if (shopping_queued == 3) displayShopping();
+        displayShopping();
     }
 }
 
