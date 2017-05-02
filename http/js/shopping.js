@@ -14,7 +14,6 @@ current_list = 0;
 
 function displayTasks() {
     data = tasks_list;
-    console.log(tasks_list);
     $("#tasks .mdl-card__supporting-text").html("");
     if (data.length > 0) {
         if (data.length > 7) {
@@ -63,13 +62,10 @@ function displayTasks() {
 
 function displayShopping() {
     barcodes_queue = []
-	console.log("Displaying lists");
-
 	data = shopping_list;
 	$("#shopping .mdl-card__supporting-text").html("");
 
     if (data.length > 0) {
-        console.log(data.length);
         if (data.length > 7) {
             out = '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
             $("#shopping").removeClass('empty-list');
