@@ -4,7 +4,7 @@ months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Augus
 var shopping_list = [];
 var shopping_list_ids = [];
 // var shopping_queued = 0;
-var shopping_urls = '581fafe836e0ef68e2777f67';
+var shopping_url = '581fafe836e0ef68e2777f67';
 
 var tasks_list = [];
 var tasks_url = '56948570275ef393558a2ef6';
@@ -229,8 +229,8 @@ function add_item_to_list(item, refresh=true) {
 
 function close_card(name, refresh=true) {
 	index = -1;
-	for (key in shopping_list[current_list]) {
-		if (name == shopping_list[current_list][key]) {
+	for (key in shopping_list) {
+		if (name == shopping_list[key]) {
 			index = key;
 			break;
 		}
@@ -316,7 +316,7 @@ function lookupCode(code) {
 
 
 function loadShopping() {
-    url = '/lists/' + shopping_urls + '/cards';
+    url = '/lists/' + shopping_url + '/cards';
 	Trello.get(url, run_parseShopping(), error)
 }
 
