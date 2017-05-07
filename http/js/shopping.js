@@ -10,8 +10,6 @@ var tasks_list = [];
 var tasks_url = '56948570275ef393558a2ef6';
 var timer;
 
-current_list = 0;
-
 function displayTasks() {
     data = tasks_list;
     $("#tasks .mdl-card__supporting-text").html("");
@@ -205,18 +203,6 @@ function save_barcode(code, desc) {
     });
 }
 
-function highlight_list() {
-    $("#shopping_"+current_list).addClass("list-selected");
-    $("#shopping_"+current_list).addClass("mdl-shadow--4dp");
-    $("#shopping_"+current_list).removeClass("mdl-shadow--1dp");
-    $("#shopping_"+current_list + " .mdl-card__title i").html("radio_button_checked");
-    $("#shopping_"+((current_list + 1) % 2)).removeClass("list-selected");
-    $("#shopping_"+((current_list + 1) % 2)).removeClass("mdl-shadow--4dp");
-    $("#shopping_"+((current_list + 1) % 2)).addClass("mdl-shadow--1dp");
-    $("#shopping_"+((current_list + 1) % 2)+ " .mdl-card__title i").html("radio_button_unchecked");
-
-}
-
 function add_item_to_list(item, refresh=true) {
 	var newCard = {
 	  name: item,
@@ -249,7 +235,7 @@ function archive_all() {
 var counter = 0;
 
 function add_remove_item(item, refresh=true) {
-    if (shopping_list[current_list].indexOf(item) >= 0) {
+    if (shopping_list.indexOf(item) >= 0) {
     	console.log("Item already in shopping list, removing");
     	close_card(item, refresh);
     }
@@ -266,12 +252,7 @@ function lookupCode(code) {
 	}).done(function(tmp_data) {
 		code = $("#codefield").val();
         console.log("lookupCode with " + code);
-		if (code == "9410000000015") {
-            console.log("Switching lists");
-            current_list = (++current_list) % 2;
-            highlight_list();
-		}
-		else if (code == "9410000000022") {
+		if (code == "9410000000022") {
 			archive_all();
 		}
         else if (code == "4935850351001") {
@@ -303,10 +284,8 @@ function lookupCode(code) {
 			}
             else {
                 console.log("Unknown barcode, add to Trello")
-                // console.log(shopping_list[current_list]);
                 console.log(code);
                 add_remove_item(code + " = ");
-                // console.log(shopping_list[current_list]);
             }
 		}
 		$("#codefield").val('');
