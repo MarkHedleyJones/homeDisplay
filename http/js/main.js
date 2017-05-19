@@ -1,24 +1,24 @@
 (function(){
 var to;
 
-	function pieceHeights(){
-		to = setTimeout(function(){
-			$(".pure-g-r").each(function(i,el){
-				var contentPieces = $(el).find(".dashboard-piece");
-				var max = 0;
-				contentPieces.css("min-height","");
-				$.grep(contentPieces, function(el,i){
-					max = Math.max($(el).outerHeight(),max);
-				});
-				contentPieces.css("min-height", max);
-			});
-		}, 400);
-	}
+  function pieceHeights(){
+    to = setTimeout(function(){
+      $(".pure-g-r").each(function(i,el){
+        var contentPieces = $(el).find(".dashboard-piece");
+        var max = 0;
+        contentPieces.css("min-height","");
+        $.grep(contentPieces, function(el,i){
+          max = Math.max($(el).outerHeight(),max);
+        });
+        contentPieces.css("min-height", max);
+      });
+    }, 400);
+  }
 
-	$(window).on("resize", function(){
-		clearTimeout(to);
-		pieceHeights();
-	}).trigger("resize");
+  $(window).on("resize", function(){
+    clearTimeout(to);
+    pieceHeights();
+  }).trigger("resize");
 
 }());
 
@@ -27,51 +27,51 @@ var to;
 days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 function date_word(number) {
-	var out;
-	switch (number) {
-		case 1:
-		case 21:
-		case 31:
-			out = "st";
-			break;
+  var out;
+  switch (number) {
+    case 1:
+    case 21:
+    case 31:
+      out = "st";
+      break;
 
-		case 2:
-		case 22:
-		case 32:
-			out = "nd";
-			break;
+    case 2:
+    case 22:
+    case 32:
+      out = "nd";
+      break;
 
-		case 3:
-		case 23:
-		case 33:
-			out = "rd";
-			break;
+    case 3:
+    case 23:
+    case 33:
+      out = "rd";
+      break;
 
-		default:
-			out = "th";
-			break;
-	}
-	return out;
+    default:
+      out = "th";
+      break;
+  }
+  return out;
 }
 
 function renderDate() {
-	var d = new Date();
-	hours = d.getHours()
-	pm = false;
-	if (hours >= 12) {
-		pm = true;
-		if (hours > 12) hours -= 12;
-	}
-	ext = "AM";
-	if (pm) ext = "PM";
-	mins = d.getMinutes();
-	if (d.getMinutes() < 10) {
-		mins = "0" + mins
-	}
-	$("#date").html(days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()]);
-	$("#time").html(hours + ':' + mins + ' <span>' + ext + '</span>');
+  var d = new Date();
+  hours = d.getHours()
+  pm = false;
+  if (hours >= 12) {
+    pm = true;
+    if (hours > 12) hours -= 12;
+  }
+  ext = "AM";
+  if (pm) ext = "PM";
+  mins = d.getMinutes();
+  if (d.getMinutes() < 10) {
+    mins = "0" + mins
+  }
+  $("#date").html(days[d.getDay()] + " " + d.getDate() + "<sup>" + date_word(d.getDate()) + "</sup> " + months[d.getMonth()]);
+  $("#time").html(hours + ':' + mins + ' <span>' + ext + '</span>');
 
-	setTimeout(renderDate, 1000);
+  setTimeout(renderDate, 1000);
 }
 
 function refreshAt(hours, minutes, seconds) {
@@ -92,7 +92,7 @@ function refreshAt(hours, minutes, seconds) {
 }
 
 function date_obj_to_str(d) {
-	return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+  return d.toISOString().substring(0,10);
 }
 
 function getWeekNumber(d) {
@@ -110,130 +110,132 @@ function getWeekNumber(d) {
     return weekNo;
 }
 
-function renderCalendar() {
-	$("#calendar").html('');
-	console.log("Loading the calendar");
-	event_list = {
-		"monthly": []
-	}
-	var now = new Date();
-	console.log(now);
-	console.log(now.getDate());
-	var vege_week = false;
-	var anniversaries = {
-		"11-16": "Dave",
-		"4-30": "Jason",
-		"2-4": "Rob",
-		"10-25": "Mark",
-		"10-28": "Matthew",
-		"6-23": "Sarah",
-		"1-12": "Jayden",
-		"12-16": "Caleb",
-		"9-5": "Sally",
-		"1-6": "Benji",
-		"1-12": "Gina",
-		"8-18": "Issac",
-		"7-30": "Shae",
-		"9-12": "Alistair",
-		"5-4": "Jonathan",
-		"7-3": "Florian",
-		"1-23": "Lachlan",
-		"2-21": "Anthony",
-		"9-28": "Claire",
-		"10-1": "Callum",
-		"10-7": "Morag",
-		"8-26": "Rosalie",
-		"4-15": "Wedding",
-		"1-1": "New Year",
-		"12-25": "Christmas",
-		"12-26": "Boxing",
-		"2-6": "Waitangi",
-		"4-25": "Anzac",
-	}
-	var events = {
-		"2017-4-2": "DST",
-		"2018-4-1": "DST",
-		"2019-4-7": "DST",
-		"2020-4-5": "DST",
-		"2017-4-14": "Good Fri",
-		"2018-4-30": "Good Fri",
-		"2019-4-19": "Good Fri",
-		"2020-4-10": "Good Fri",
-		"2017-4-17": "Easter Mon",
-		"2018-4-2": "Easter Mon",
-		"2019-4-22": "Easter Mon",
-		"2020-4-13": "Easter Mon",
-		"2020-4-27": "Anzac Hol",
-		"2017-6-5": "Queen",
-		"2018-6-4": "Queen",
-		"2019-6-3": "Queen",
-		"2020-6-1": "Queen",
-		"2017-9-24": "DST",
-		"2018-9-30": "DST",
-		"2019-9-29": "DST",
-		"2020-9-27": "DST",
-		"2017-10-23": "Labor Day",
-		"2018-10-22": "Labor Day",
-		"2019-10-28": "Labor Day",
-		"2020-10-26": "Labor Day",
-		"2017-1-30": "Auckland",
-		"2018-1-29": "Auckland",
-		"2019-1-28": "Auckland",
-		"2020-1-27": "Auckland",
-	}
-	for (var d = new Date(now.getFullYear(), now.getMonth(), 1); d < new Date(now.getFullYear(), now.getMonth() + 1, 1); d.setDate(d.getDate() + 1)) {
-		if (d.getDay() == 0 && vege_week == false) {
-			tmp = new Date(d);
-			tmp.setDate(tmp.getDate() + 6);
-			event_list["monthly"].push({
-				"name": "Vege week",
-				"startdate": date_obj_to_str(d),
-				"enddate": date_obj_to_str(tmp),
-				"color": "#9C9C9C"
-			});
-			vege_week = true;
-		}
-		if (d.getDay() == 3) {
-			if(getWeekNumber(d) % 2 == 0) {
-				event_list["monthly"].push({
-					"name": "Recycling",
-					"startdate": date_obj_to_str(d),
-					"color": "#C9B583"
-				});
-			}
-			else {
-				event_list["monthly"].push({
-					"name": "Rubbish",
-					"startdate": date_obj_to_str(d),
-					"color": "#83C9C2"
-				});
-			}
-		}
-		else if (d.getDay() == 3) {
-			event_list["monthly"].push({
-				"name": "Japaneese",
-				"startdate": date_obj_to_str(d),
-				"color": "#FF9999"
-			});
-		}
-		for (var anni in anniversaries) {
-			if (date_obj_to_str(d).substr(5) == anni) {
-				event_list["monthly"].push({
-					"name": anniversaries[anni],
-					"startdate": date_obj_to_str(d),
-					"color": "#8394C9"
-				});
-			}
-		}
-	}
-	$('#calendar').monthly({
-	    mode: 'event',
-	    dataType: 'json',
-	    events: event_list
-	});
-    setTimeout(renderCalendar, 1000*60*5);
+function getCalendar() {
+  console.log("Requesting calendar");
+  $.ajax({
+    url: "/get_calendar?test=do",
+    datatype: "json"
+    }).done(function(response) {
+      console.log("Calendar responded");
+      renderCalendar(response);
+    });
 }
 
-renderCalendar();
+function renderCalendar(calendarData) {
+  $("#calendar").html('');
+  console.log("Rendering calendar");
+  event_list = {
+    "monthly": []
+  }
+  var now = new Date();
+
+  var anniversaries = {
+    "11-16": "Dave",
+    "04-30": "Jason",
+    "02-04": "Rob",
+    "10-25": "Mark",
+    "10-28": "Matthew",
+    "06-23": "Sarah",
+    "01-12": "Jayden",
+    "12-16": "Caleb",
+    "09-05": "Sally",
+    "01-06": "Benji",
+    "01-12": "Gina",
+    "08-18": "Issac",
+    "07-30": "Shae",
+    "09-12": "Alistair",
+    "05-04": "Jonathan",
+    "07-03": "Florian",
+    "01-23": "Lachlan",
+    "02-21": "Anthony",
+    "09-28": "Claire",
+    "10-01": "Callum",
+    "10-07": "Morag",
+    "08-26": "Rosalie",
+    "04-15": "Wedding",
+    // "01-01": "New Year",
+    // "12-25": "Christmas",
+    // "12-26": "Boxing",
+    // "02-06": "Waitangi",
+    // "04-25": "Anzac",
+  }
+  var events = {
+    "2017-04-02": "DST",
+    "2018-04-01": "DST",
+    "2019-04-07": "DST",
+    "2020-04-05": "DST",
+    "2017-04-14": "Good Fri",
+    "2018-04-30": "Good Fri",
+    "2019-04-19": "Good Fri",
+    "2020-04-10": "Good Fri",
+    "2017-04-17": "Easter Mon",
+    "2018-04-02": "Easter Mon",
+    "2019-04-22": "Easter Mon",
+    "2020-04-13": "Easter Mon",
+    "2020-04-27": "Anzac Hol",
+    "2017-06-05": "Queen",
+    "2018-06-04": "Queen",
+    "2019-06-03": "Queen",
+    "2020-06-01": "Queen",
+    "2017-09-24": "DST",
+    "2018-09-30": "DST",
+    "2019-09-29": "DST",
+    "2020-09-27": "DST",
+    "2017-10-23": "Labor Day",
+    "2018-10-22": "Labor Day",
+    "2019-10-28": "Labor Day",
+    "2020-10-26": "Labor Day",
+    "2017-01-30": "Auckland",
+    "2018-01-29": "Auckland",
+    "2019-01-28": "Auckland",
+    "2020-01-27": "Auckland",
+  }
+  console.log(calendarData)
+  for (var d = new Date(now.getFullYear(), now.getMonth(), 1); d < new Date(now.getFullYear(), now.getMonth() + 1, 1); d.setDate(d.getDate() + 1)) {
+    for (item in calendarData) {
+      console.log(calendarData[item][0], date_obj_to_str(d));
+      if (calendarData[item][0] == date_obj_to_str(d)) {
+        event_list["monthly"].push({
+          "name": calendarData[item][1],
+          "startdate": date_obj_to_str(d),
+          "color": "#8394C9"
+        });
+      }
+    }
+    if (d.getDay() == 3) {
+      if(getWeekNumber(d) % 2 == 0) {
+        event_list["monthly"].push({
+          "name": "Recycling",
+          "startdate": date_obj_to_str(d),
+          "color": "#C9B583"
+        });
+      }
+      else {
+        event_list["monthly"].push({
+          "name": "Rubbish",
+          "startdate": date_obj_to_str(d),
+          "color": "#83C9C2"
+        });
+      }
+    }
+    for (var anni in anniversaries) {
+      if (date_obj_to_str(d).substr(5) == anni) {
+        event_list["monthly"].push({
+          "name": anniversaries[anni],
+          "startdate": date_obj_to_str(d),
+          "color": "#8394C9"
+        });
+      }
+    }
+  }
+  $('#calendar').monthly({
+      mode: 'event',
+      dataType: 'json',
+      events: event_list
+  });
+    setTimeout(getCalendar, 1000*60*5);
+}
+
+getCalendar();
 renderDate();
 refreshAt(0, 0, 0);
