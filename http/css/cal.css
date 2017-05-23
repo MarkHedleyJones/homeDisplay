@@ -1,0 +1,97 @@
+/*#calendar table td {
+    border: 1px solid black;
+    border-width: 0 0 1px 0;
+    margin: 0;
+    padding: 0;
+    vertical-align: 85%;
+}
+
+#calendar table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+}
+
+#calendar {
+    width: 100%;
+    height: 100%;
+}*/
+
+#calendar {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 3% 0 0 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#calendar div {
+    vertical-align: top
+}
+
+#calendar .row {
+    height: 18.1%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+
+#calendar .head {
+    width: 100%;
+    height: 10%;
+    margin: 0;
+    padding: 0;
+}
+
+#calendar .head .day {
+    /*height: 15%;*/
+    font-weight: 700;
+    text-align: center;
+    width: 12.5%;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+#calendar .head.row .day{
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+#calendar .row,
+#calendar .day,
+#calendar .head {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+}
+
+#calendar .day {
+    width: 12.5%;
+    height: 100%;
+    text-align: left;
+    border: 1px solid #CCC;
+    border-width: 0 0 1px 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/*#calendar .cal .day span {
+    padding: 5px;
+}*/
+
+#calendar .event {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    font-size: 0.7em;
+    width: 100%;
+}

@@ -92,7 +92,9 @@ function refreshAt(hours, minutes, seconds) {
 }
 
 function date_obj_to_str(d) {
-  return d.toISOString().substring(0,10);
+  var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+  var localISOTime = (new Date(d - tzoffset)).toISOString().slice(0,-1);
+  return localISOTime.substr(0,10);
 }
 
 function getWeekNumber(d) {
@@ -113,7 +115,7 @@ function getWeekNumber(d) {
 function getCalendar() {
   console.log("Requesting calendar");
   $.ajax({
-    url: "/get_calendar?test=do",
+    url: "/get_calendar",
     datatype: "json"
     }).done(function(response) {
       console.log("Calendar responded");
@@ -124,9 +126,10 @@ function getCalendar() {
 function renderCalendar(calendarData) {
   $("#calendar").html('');
   console.log("Rendering calendar");
-  event_list = {
-    "monthly": []
-  }
+  // event_list = {
+  //   "monthly": []
+  // }
+  event_list = []
   var now = new Date();
 
   var anniversaries = {
@@ -190,12 +193,11 @@ function renderCalendar(calendarData) {
     "2019-01-28": "Auckland",
     "2020-01-27": "Auckland",
   }
-  console.log(calendarData)
-  for (var d = new Date(now.getFullYear(), now.getMonth(), 1); d < new Date(now.getFullYear(), now.getMonth() + 1, 1); d.setDate(d.getDate() + 1)) {
+  for (var d = new Date(now.getFullYear(), now.getMonth() - 1, 1); d < new Date(now.getFullYear(), now.getMonth() + 2, 1); d.setDate(d.getDate() + 1)) {
     for (item in calendarData) {
-      console.log(calendarData[item][0], date_obj_to_str(d));
+      // console.log(calendarData[item][0], date_obj_to_str(d));
       if (calendarData[item][0] == date_obj_to_str(d)) {
-        event_list["monthly"].push({
+        event_list.push({
           "name": calendarData[item][1],
           "startdate": date_obj_to_str(d),
           "color": "#8394C9"
@@ -203,15 +205,16 @@ function renderCalendar(calendarData) {
       }
     }
     if (d.getDay() == 3) {
+      console.log(d);
       if(getWeekNumber(d) % 2 == 0) {
-        event_list["monthly"].push({
+        event_list.push({
           "name": "Recycling",
           "startdate": date_obj_to_str(d),
           "color": "#C9B583"
         });
       }
       else {
-        event_list["monthly"].push({
+        event_list.push({
           "name": "Rubbish",
           "startdate": date_obj_to_str(d),
           "color": "#83C9C2"
@@ -220,7 +223,7 @@ function renderCalendar(calendarData) {
     }
     for (var anni in anniversaries) {
       if (date_obj_to_str(d).substr(5) == anni) {
-        event_list["monthly"].push({
+        event_list.push({
           "name": anniversaries[anni],
           "startdate": date_obj_to_str(d),
           "color": "#8394C9"
@@ -228,12 +231,62 @@ function renderCalendar(calendarData) {
       }
     }
   }
-  $('#calendar').monthly({
-      mode: 'event',
-      dataType: 'json',
-      events: event_list
-  });
-    setTimeout(getCalendar, 1000*60*5);
+  // $('#calendar').monthly({
+  //     mode: 'event',
+  //     dataType: 'json',
+  //     events: event_list
+  // });
+  generateCalendar(event_list);
+  setTimeout(getCalendar, 1000*60*5);
+}
+
+function generateCalendar(event_list) {
+  var master = $('#calendar');
+  today = new Date();
+  today.setHours(0, 0, 0);
+  startdate = new Date();
+  startdate.setHours(0, 0, 0);
+  out = "";
+  // console.log(now.getDay());
+  startdate.setDate(startdate.getDate() - 6 - startdate.getDay());
+
+
+  // Make Sunday the last day of the week
+  dayOrder = [1, 2, 3, 4, 5, 6, 0];
+
+
+  out += '<div class="head">';
+  for (daynum in dayOrder) {
+    out += '<div class="day">' + days[dayOrder[daynum]].substr(0,3) + '</div>';
+  }
+  out += '</div>';
+
+
+  for (var i=0; i<7*5; i++) {
+    if (i % 7 == 0) out += '<div class="row">';
+    style = "";
+    if (date_obj_to_str(startdate) == date_obj_to_str(today)) {
+      style = "background-color: #606060; color: #FFF;";
+    }
+    if (startdate.getDate() == 1) {
+      style = "border-width: 0 0 1px 2px";
+    }
+    out += '<div class="day"';
+    if (style != "") out += ' style="' + style + '"';
+    out += '><span style="display: inline-block; margin: 2px 0 0 2px">' + startdate.getDate() + '</span>';
+    for (event in event_list) {
+      if (event_list[event]["startdate"] == date_obj_to_str(startdate)) {
+        out += '<div class="event" style="background-color: '+event_list[event]["color"]+'">';
+        out += event_list[event]["name"];
+        out += '</div>';
+      }
+    }
+    out += '</div>';
+    if (i % 7 == 6) out += '</div>';
+    startdate.setDate(startdate.getDate() + 1);
+  }
+
+  master.html(out);
 }
 
 getCalendar();
