@@ -266,10 +266,10 @@ function generateCalendar(event_list) {
     if (i % 7 == 0) out += '<div class="row">';
     style = "";
     if (date_obj_to_str(startdate) == date_obj_to_str(today)) {
-      style = "background-color: #606060; color: #FFF;";
+      style = "background-color: #F5F5F5; border-width: 1px 0 0px 0";
     }
     if (startdate.getDate() == 1) {
-      style = "border-width: 0 0 1px 2px";
+      style = "border-width: 0 0 1px 3px";
     }
     out += '<div class="day"';
     if (style != "") out += ' style="' + style + '"';
