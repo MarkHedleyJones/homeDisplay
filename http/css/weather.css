@@ -19,3 +19,7 @@
 .thunder {background-image: url('/img/weather/thunder.svg');}
 .windy {background-image: url('/img/weather/wind.svg');}
 .wind {background-image: url('/img/weather/wind.svg');}
+
+.weather {
+    max-height: 330px;
+}

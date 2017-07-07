@@ -1,466 +1,219 @@
-/*! HTML5 Boilerplate v5.3.0 | MIT License | https://html5boilerplate.com/ */
+#tasks,
+#shopping {
+    display: inline-block;
+}
 
-/*
- * What follows is the result of much research on cross-browser styling.
- * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
- * Kroc Camen, and the H5BP dev community and team.
- */
+#date-iso {
+    font-size: 1.8em;
+    margin-top: 0px;
+    margin-left: 20px;
+    top: -20px;
+    position: relative;
+    margin-bottom: 10px
+}
 
-/* ==========================================================================
-   Base styles: opinionated defaults
-   ========================================================================== */
+#calendar-card {
+    height: 550px;
+}
 
-html {
-    color: #222;
-    font-size: 1em;
-    line-height: 1.4;
+#date {
+    margin-bottom: 0;
+    margin-top: -5px;
+}
+
+header#banner {
+    height: 130px;
+}
+
+#time {
+    font-weight: 700;
+    margin-top: 17px;
+}
+
+main {
     height: 100%;
 }
 
-body {
-    height: 100%;
+#overview {
+  position: relative;
+  top: 50%;
+  height: 100%;
+  transform: translateY(-50%);
+  max-height: 895px;
 }
 
-
-/*
- * Remove text-shadow in selection highlight:
- * https://twitter.com/miketaylr/status/12228805301
- *
- * These selection rule sets have to be separate.
- * Customize the background color to match your design.
- */
-
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
+header {
+    margin: 0 auto !important;
 }
 
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
+#banner {
+    background-color: #404040 !important;
 }
 
-/*
- * A better looking default horizontal rule
- */
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
+.weather .mdl-card__title {
+  color: #fff;
+  background-color: #648AA8;
+  background-repeat: no-repeat;
 }
 
-/*
- * Remove the gap between audio, canvas, iframes,
- * images, videos and the bottom of their containers:
- * https://github.com/h5bp/html5-boilerplate/issues/440
- */
+.mdl-card__title {
+  color: #fff;
+  background-color: #62948F;
+  background-repeat: no-repeat;
+}
 
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
+#weather_card1 .mdl-card__title {
+    background-position: 95% center;
+    height: 256px !important;
+}
+
+#weather_card2 .mdl-card__title,
+#weather_card3 .mdl-card__title,
+#weather_card4 .mdl-card__title {
+    background-size: 128px 128px;
+    background-position: center top;
+    height: 180px !important;
+}
+
+.mdl-card__supporting-text {
+    text-align: center
+}
+
+#weather_card1 .temp > div
+{
+    font-size: 23pt;
+}
+
+.temp {
+    width: auto;
+    position: absolute;
+    bottom: 13px;
+    right: 10px;
+}
+
+.temp > div {
+    display: inline-block;
+    font-size: 16pt;
+    font-weight: 700;
+    margin-top: 20px;
+    word-spacing: 5px
+}
+
+.desc {
+
+}
+
+.dash {
+    margin: 0 5px 0 5px;
+}
+
+.high {
+    color: #F68080
+}
+
+.low {
+    color: #7FC4E2
+}
+
+.cld-main {
+    margin: 20px auto;
+}
+
+.mdl-card__supporting-text {
+    margin: 20px auto !important;
+    min-width: 95% !important;
+    /*min-height: 18px !important;*/
+}
+
+.mdl-list {
+    margin: 0 auto;
+}
+
+.mdl-list__item-icon {
+    margin-right: 15px !important;
+}
+
+.shopping.empty-list img {
+    width: 128px;
+    height: auto;
+    /*margin: 0 5% 0 20%;*/
+}
+
+.list-selected .mdl-card__title-text {
+    align-self: center !important;
+}
+
+.shopping .mdl-card__title {
+    min-height: 55px
+}
+
+/*.heading_div {
+    width: 100%;
+    position: absolute;
+    top: 16px;
+}*/
+
+.shopping.empty-list .heading_div {
+    margin: auto auto;
+    width: auto;
+    position: relative;
+    top: auto;
+}
+
+.shopping h2 {
+    display: inline-block;
     vertical-align: middle;
 }
 
-/*
- * Remove default fieldset styles.
- */
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-/*
- * Allow only vertical resizing of textareas.
- */
-
-textarea {
-    resize: vertical;
-}
-
-/* ==========================================================================
-   Browser Upgrade Prompt
-   ========================================================================== */
-
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-[class*="fontawesome-"]:before {
-  font-family: 'FontAwesome', sans-serif;
-}
-
-
-/*
-    red: #E73F3F
-    orange: #F76C27
-    yellow: #E7E737
-    blue: #6D9DD1
-    purple: #7E45D3
-*/
-
-.dashboard {
-    height: 100%
-}
-
-.list_selector {
-    width: 95%;
-    height: 100%;
-    border: 3px solid rgba(255, 255, 255, 0);
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0 auto;
-    padding: 0px;
-}
-
-.list_selected {
-    color: rgba(255, 255, 255, 1);
-    border: 3px solid rgba(255, 255, 255, 0.5);
-}
-
-.list_selector ul {
-    text-align: left;
-    font-family: "Caveat Brush";
-    font-size: 1.6em
-}
-
-.dashboard-piece .list_selector h2 {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.dashboard-piece .list_selector.list_selected h2 {
-    color: rgba(255, 255, 255, 1);
-}
-
-.dashboard-banner {
-    height: 100px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    color: #fff;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-}
-
-.dashboard-banner h1 {
-    font-family: "Sans";
-    margin: 0;
-    padding-top: 15px;
-    font-size: 3em;
-}
-
-.dashboard-piece {
-    min-height: 300px;
-    height: 100%;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    color: #fff;
-    text-align: center;
-    position: relative;
-    padding-bottom: 20px;
-    padding-top: 111px;
-}
-
-.dashboard-piece-redbg {
-    background-color: #444444;
-}
-.dashboard-piece-orangebg {
-    background-color: #F76C27;
-}
-.dashboard-piece-yellowbg {
-    background-color: #E7E737;
-}
-.dashboard-piece-bluebg {
-    background-color: #3983A1;
-}
-.dashboard-piece-purplebg {
-    background-color: #9377BF;
-}
-.dashboard-piece-graybg {
-    background-color: #798388;
-}
-.dashboard-piece-tealbg {
-    background-color: #60AEB1;
-}
-.dashboard-piece-greenbg {
-    background-color: #696969;
-}
-
-.dashboard-piece h2 {
-    /*line-height: 300px;*/
-    /*font-size: 3.6em;*/
-    font-family: "Sans";
-    margin: 0 0 15px 0;
-    font-size: 1.8em;
-    color: rgba(255, 255, 255, 0.5);
-}
-.dashboard-content {
-    position: relative;
-    z-index: 999;
-}
-.dashboard-content p {
-    font-weight: lighter;
-}
-.dashboard-content .light {
-    opacity: 0.4;
-    display: block;
-}
-.dashboard-content h2 i {
-    font-size: 4em;
-    opacity: 0.4;
-}
-.dashboard-metric {
-    text-transform: uppercase;
-    font-size: 1.6em;
-    line-height: 1;
-}
-.dashboard-metric i {
-    margin-right: 0.6em;
-}
-
-.bar-horizontal {
-    height: 36px;
-    background-color: rgba(255,255,255,0.4);
-    position: relative;
-    display: block;
-    margin-top: 20px;
-}
-.bar-horizontal-bar {
-    background: #fff;
-    height: 36px;
-    line-height: 36px;
-    color: #444;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 0.8em;
-    letter-spacing: 0.2em;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.bar-vertical {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    background: rgba(200,200,200,0.5);
-}
-
-
-#codefield {
-    outline: none;
-    color: transparent;
-    border: none;
-}
-input:focus {
-    outline: none;
-}
-
-#shopping ul {
+.shopping img {
+    width: 30px;
+    margin-right: 15px;
+    vertical-align: middle;
     display: inline-block;
-    width: auto;
-    margin: 0 auto;
-    text-align: left;
-    padding: 0;
 }
 
-#shopping li {
-    width: auto;
-    font-size: 24pt;
-    font-family: 'Caveat Brush', cursive;
-    list-style-type: none;
+.list-selected .mdl-card__title {
+    background-color: #46b6ac !important;
 }
 
-#shopping {
-    font-family: 'Caveat Brush', cursive;
-}
-
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-/*
- * Hide visually and from screen readers
- */
-
-.hidden {
-    display: none !important;
-}
-
-/*
- * Hide only visually, but have it available for screen readers:
- * http://snook.ca/archives/html_and_css/hiding-content-for-accessibility
- */
-
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
+.shopping .mdl-card__title i {
+    color: #fff;
     position: absolute;
-    width: 1px;
+    top: 20px;
+    right: 8px;
 }
 
-/*
- * Extends the .visuallyhidden class to allow the element
- * to be focusable when navigated to via the keyboard:
- * https://www.drupal.org/node/897638
- */
+/*.mdl-list li {
+    display: inline-block;
+}*/
 
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
+.mdl-list {
+    text-align: left;
 }
 
-/*
- * Hide visually and from screen readers, but maintain layout
- */
-
-.invisible {
-    visibility: hidden;
+#time span {
+    font-size: 18pt;
 }
 
-/*
- * Clearfix: contain floats
- *
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    `contenteditable` attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that receive the `clearfix` class.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
-
-.clearfix:before,
-.clearfix:after {
-    content: " "; /* 1 */
-    display: table; /* 2 */
+.happy_sun {
+    margin: 43px 0 0 143px;
 }
 
-.clearfix:after {
-    clear: both;
+.happy_sun span {
+    font-size: 18pt;
 }
 
-/* ==========================================================================
-   EXAMPLE Media Queries for Responsive Design.
-   These examples override the primary ('mobile first') styles.
-   Modify as content requires.
-   ========================================================================== */
-
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+#current_temp {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    font-size: 24pt;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
+    /*color: #DFE1D3;*/
 }
 
-@media print,
-       (-webkit-min-device-pixel-ratio: 1.25),
-       (min-resolution: 1.25dppx),
-       (min-resolution: 120dpi) {
-    /* Style adjustments for high resolution devices */
+.demo-content {
+    height: 98%;
 }
 
-/* ==========================================================================
-   Print styles.
-   Inlined to avoid the additional HTTP request:
-   http://www.phpied.com/delay-loading-your-print-css/
-   ========================================================================== */
-
-@media print {
-    *,
-    *:before,
-    *:after,
-    *:first-letter,
-    *:first-line {
-        background: transparent !important;
-        color: #000 !important; /* Black prints faster:
-                                   http://www.sanbeiji.com/archives/953 */
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    /*
-     * Don't show links that are fragment identifiers,
-     * or use the `javascript:` pseudo protocol
-     */
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    /*
-     * Printing Tables:
-     * http://css-discuss.incutio.com/wiki/Printing_Tables
-     */
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-}
