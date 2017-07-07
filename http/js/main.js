@@ -289,19 +289,19 @@ function generateCalendar(event_list) {
     out += '</div>';
     if (i % 7 == 6) out += '</div>';
     startdate.setDate(startdate.getDate() + 1);
-
-    out = '';
-    out += today.getFullYear()
-    out += '-';
-    if ((today.getMonth() + 1) < 10) out += '0';
-    out += today.getMonth() + 1;
-    out += '-';
-    if (today.getDate()) out += '0';
-    out += today.getDate();
-    $("#date-iso").html(out);
   }
 
   master.html(out);
+
+  out = '';
+  out += today.getFullYear()
+  out += '-';
+  if ((today.getMonth() + 1) < 10) out += '0';
+  out += today.getMonth() + 1;
+  out += '-';
+  if (today.getDate()) out += '0';
+  out += today.getDate();
+  $("#date-iso").html(out);
 }
 
 getCalendar();
