@@ -243,12 +243,17 @@ function renderCalendar(calendarData) {
 function generateCalendar(event_list) {
   var master = $('#calendar');
   today = new Date();
+  // Use this for debug to test the calendar on any day of the week
+  //today.setDate(today.getDate() - 5);
   today.setHours(0, 0, 0);
   startdate = new Date();
   startdate.setHours(0, 0, 0);
   out = "";
-  // console.log(now.getDay());
-  startdate.setDate(startdate.getDate() - 6 - startdate.getDay());
+
+  // Deduct an extra week if Sunday to fix convesion where Sunday is end of week
+  // last week, not start of new week.
+  if (today.getDay() == 0) startdate.setDate(startdate.getDate() - 6 - startdate.getDay() - 7);
+  else startdate.setDate(startdate.getDate() - 6 - startdate.getDay());
 
 
   // Make Sunday the last day of the week
