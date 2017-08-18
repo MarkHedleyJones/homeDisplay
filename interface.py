@@ -170,9 +170,26 @@ def retrieve_calendar(service, calendarId, calendarName):
         return []
     else:
         out = []
+        # print(events)
+        2017-05-25
+
         for event in events:
             start = event['start'].get('dateTime', event['start'].get('date'))[:10]
-            out.append([start, event['summary'], calendarName])
+            end = event['end'].get('dateTime', event['end'].get('date'))[:10]
+            if start == end or event['summary'].lower().find('eve') != -1 or event['summary'].lower().find('day') != -1:
+                out.append([start, event['summary'], calendarName])
+            else:
+                date_counter = datetime.datetime(int(start[0:4]), int(start[5:7]), int(start[8:10]))
+                date_end = datetime.datetime(int(end[0:4]), int(end[5:7]), int(end[8:10]))
+                counter = 0
+                # print(date_counter,date_end)
+                while date_counter <= date_end and counter < 30:
+                    # print(date_counter)
+                    date_counter += datetime.timedelta(days=1)
+                    counter += 1
+                    out.append([str(date_counter)[0:10], event['summary'], calendarName])
+                # print(event['start'], event['end'])
+                # print(event['summary'], start, end)
         return out
 
 @app.route("/get_calendar")

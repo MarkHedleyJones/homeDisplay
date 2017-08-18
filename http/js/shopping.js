@@ -16,7 +16,7 @@ function displayTasks() {
     if (data.length > 0) {
         if (data.length > 7) {
             out = '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
-            $("#tasks").removeClass('empty-list');
+            // $("#tasks").removeClass('empty-list');
             for (i = 0; i < 7; i++) {
                 out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
             }
@@ -24,7 +24,7 @@ function displayTasks() {
 
             if (data.length > 14) {
                 out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
-                $("#tasks").removeClass('empty-list');
+                // $("#tasks").removeClass('empty-list');
                 for (i = 7; i < 13; i++) {
                     out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
                 }
@@ -33,7 +33,7 @@ function displayTasks() {
             }
             else {
                 out += '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
-                $("#tasks").removeClass('empty-list');
+                // $("#tasks").removeClass('empty-list');
                 for (i = 7; i < data.length; i++) {
                     out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
                 }
@@ -43,7 +43,7 @@ function displayTasks() {
         }
         else {
             out = '<ul class="demo-list-item mdl-list">';
-            $("#tasks").removeClass('empty-list');
+            // $("#tasks").removeClass('empty-list');
             for (i = 0; i< data.length; i++) {
                 out += '<li class="mdl-list__item"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-icon">fiber_manual_record</i>' + data[i] + '</span></li>';
             }
@@ -51,7 +51,7 @@ function displayTasks() {
         }
     }
     else {
-        $("#tasks").addClass('empty-list');
+        // $("#tasks").addClass('empty-list');
         out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been done</span>';
     }
 
@@ -66,7 +66,7 @@ function displayShopping() {
     if (data.length > 0) {
         if (data.length > 7) {
             out = '<ul class="demo-list-item mdl-list" style="display: inline-block; vertical-align: top">';
-            $("#shopping").removeClass('empty-list');
+            // $("#shopping").removeClass('empty-list');
             for (i = 0; i < 7; i++) {
                 if (data[i].indexOf(" = ") != -1) {
                     if (data[i].length - 3 == data[i].indexOf(" = ")) {
@@ -134,7 +134,7 @@ function displayShopping() {
         }
         else {
             out = '<ul class="demo-list-item mdl-list">';
-            $("#shopping").removeClass('empty-list');
+            // $("#shopping").removeClass('empty-list');
             for (i = 0; i< data.length; i++) {
                 if (data[i].indexOf(" = ") != -1) {
                     if (data[i].length - 3 == data[i].indexOf(" = ")) {
@@ -157,7 +157,7 @@ function displayShopping() {
         }
     }
     else {
-        $("#shopping").addClass('empty-list');
+        // $("#shopping").addClass('empty-list');
 		out = '<span><i class="material-icons mdl-list__item-icon" style="position: relative; bottom: -5px; margin-right: 5px !important">done</i>Everything&rsquo;s been bought</span>';
     }
 
@@ -252,8 +252,8 @@ function lookupCode(code) {
 	}).done(function(tmp_data) {
 		code = $("#codefield").val();
         console.log("lookupCode with " + code);
-		if (code == "9410000000022") {
-			archive_all();
+		if (code == "9410000000015") {
+			window.location.reload();
 		}
         else if (code == "4935850351001") {
             add_remove_item("Bananas");

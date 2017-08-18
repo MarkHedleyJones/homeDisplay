@@ -119,6 +119,7 @@ function getCalendar() {
     datatype: "json"
     }).done(function(response) {
       console.log("Calendar responded");
+      console.log(response);
       renderCalendar(response);
     });
 }
@@ -265,7 +266,6 @@ function generateCalendar(event_list) {
     out += '<div class="day">' + days[dayOrder[daynum]].substr(0,3) + '</div>';
   }
   out += '</div>';
-
 
   for (var i=0; i<7*5; i++) {
     if (i % 7 == 0) out += '<div class="row">';
