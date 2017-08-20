@@ -299,8 +299,13 @@ function generateCalendar(event_list) {
   if ((today.getMonth() + 1) < 10) out += '0';
   out += today.getMonth() + 1;
   out += '-';
-  if (today.getDate()) out += '0';
+  if (today.getDate() < 10) out += '0';
   out += today.getDate();
+
+  trip_counter = 0
+  trip_date = new Date(2017, 11, 18);
+  days_until_trip = Math.ceil((trip_date-today)/(1000*60*60*24));
+  out = days_until_trip + " days until holiday";
   $("#date-iso").html(out);
 }
 
