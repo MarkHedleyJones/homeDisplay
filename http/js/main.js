@@ -245,7 +245,7 @@ function generateCalendar(event_list) {
   var master = $('#calendar');
   today = new Date();
   // Use this for debug to test the calendar on any day of the week
-  //today.setDate(today.getDate() - 5);
+  // today.setDate(today.getDate() - 1);
   today.setHours(0, 0, 0);
   startdate = new Date();
   startdate.setHours(0, 0, 0);
@@ -271,10 +271,10 @@ function generateCalendar(event_list) {
     if (i % 7 == 0) out += '<div class="row">';
     style = "";
     if (date_obj_to_str(startdate) == date_obj_to_str(today)) {
-      style = "background-color: #F5F5F5; border-width: 1px 0 0px 0";
+      style += "background-color: #F5F5F5;";
     }
     if (startdate.getDate() == 1) {
-      style = "border-width: 0 0 1px 3px";
+      style += "border-width: 0 0 1px 3px";
     }
     out += '<div class="day"';
     if (style != "") out += ' style="' + style + '"';
