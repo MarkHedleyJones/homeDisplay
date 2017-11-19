@@ -306,7 +306,7 @@ function generateCalendar(event_list) {
   trip_counter = 0
   trip_date = new Date(2017, 11, 18);
   days_until_trip = Math.ceil((trip_date-today)/(1000*60*60*24));
-  out = days_until_trip + " days until England, " + (days_until_trip+11) + " days until France, " + (days_until_trip+16) + " days until Japan.";
+  out = days_until_trip + " days to England, " + (days_until_trip+11) + " days to France, and " + (days_until_trip+16) + " days to Japan.";
   $("#date-iso").html(out);
 }
 
