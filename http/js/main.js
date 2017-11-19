@@ -157,6 +157,7 @@ function renderCalendar(calendarData) {
     "10-07": "Morag",
     "08-26": "Rosalie",
     "04-15": "Wedding",
+    "09-17": "Jenna",
     // "01-01": "New Year",
     // "12-25": "Christmas",
     // "12-26": "Boxing",
