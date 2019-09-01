@@ -12,7 +12,7 @@ You can run it on a Raspberry Pi so it's always running. Use a wall-timer to tur
 
 ## See it in action
 
-[![The Most Convenient Shopping List Ever](http://i3.ytimg.com/vi/rjEYKrj8YEo/maxresdefault.jpg)](https://www.youtube.com/watch?v=rjEYKrj8YEo "The Most Convenient Shopping List Ever")
+[![The Most Convenient Shopping List Ever](https://img.youtube.com/vi/rjEYKrj8YEo/hqdefault.jpg)](https://www.youtube.com/watch?v=rjEYKrj8YEo "The Most Convenient Shopping List Ever")
 
 ## More details:
 For more details, read about it [on my website](https://markhedleyjones.com/projects/barcode-scanner-shopping-list)
